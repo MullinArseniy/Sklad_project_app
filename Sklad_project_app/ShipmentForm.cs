@@ -15,6 +15,13 @@ namespace Sklad_project_2
                 + " " + CurrentUser.User.Name;
         }
 
+        private void ShipmentForm_Load(object sender, EventArgs e)
+        {
+            LoadCategoriesToFilter();
+            LoadProducts();
+            dtpDate.Value = DateTime.Today;
+        }
+
         private void LoadCategoriesToFilter()
         {
             using (var db = new SkladContext())
@@ -154,22 +161,6 @@ namespace Sklad_project_2
             }
         }
 
-        private void ShipmentForm_Load(object sender, EventArgs e)
-        {
-            LoadCategoriesToFilter();
-            LoadProducts();
-            dtpDate.Value = DateTime.Today;
-        }
-
-        private void UpdateTotal()
-        {
-            int total = 0;
-            foreach (var kv in _shipmentItems)
-                total += kv.Value;
-            lblTotal.Text = "ВЗЯТО ТОВАРОВ:\n" + total.ToString();
-        }
-
-
         private void dgvShipment_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -210,6 +201,13 @@ namespace Sklad_project_2
             UpdateTotal();
         }
 
+        private void UpdateTotal()
+        {
+            int total = 0;
+            foreach (var kv in _shipmentItems)
+                total += kv.Value;
+            lblTotal.Text = "ВЗЯТО ТОВАРОВ:\n" + total.ToString();
+        }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {

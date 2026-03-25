@@ -9,6 +9,11 @@ namespace Sklad_project_2
             InitializeComponent();
         }
 
+        private void CategoriesForm_Load(object sender, EventArgs e)
+        {
+            LoadCategories();
+        }
+
         private void LoadCategories()
         {
             using (var db = new SkladContext())
@@ -19,11 +24,6 @@ namespace Sklad_project_2
                     lstCategories.Items.Add(c.Name);
             }
         }
-        private void CategoriesForm_Load(object sender, EventArgs e)
-        {
-            LoadCategories();
-        }
-
 
         private void btnAddCat_Click(object sender, EventArgs e)
         {

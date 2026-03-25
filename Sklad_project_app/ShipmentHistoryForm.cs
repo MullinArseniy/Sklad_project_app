@@ -9,6 +9,11 @@ namespace Sklad_project_2
             InitializeComponent();
         }
 
+        private void ShipmentHistoryForm_Load(object sender, EventArgs e)
+        {
+            LoadHistory();
+        }
+
         private void LoadHistory()
         {
             using (var db = new SkladContext())
@@ -42,12 +47,17 @@ namespace Sklad_project_2
             }
         }
 
-        private void ShipmentHistoryForm_Load(object sender, EventArgs e)
+        private void dgvHistory_SelectionChanged(object sender, EventArgs e)
         {
-            LoadHistory();
-        }
+            if (dgvHistory.SelectedRows.Count == 0) return;
 
-        
+            int shipId;
+            if (!int.TryParse(
+                dgvHistory.SelectedRows[0].Cells["colShipIdHidden"].Value?.ToString(),
+                out shipId)) return;
+
+            LoadShipmentItems(shipId);
+        }
 
         private void LoadShipmentItems(int shipmentId)
         {
@@ -72,18 +82,6 @@ namespace Sklad_project_2
                     }
                 }
             }
-        }
-
-        private void dgvHistory_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvHistory.SelectedRows.Count == 0) return;
-
-            int shipId;
-            if (!int.TryParse(
-                dgvHistory.SelectedRows[0].Cells["colShipIdHidden"].Value?.ToString(),
-                out shipId)) return;
-
-            LoadShipmentItems(shipId);
         }
     }
 }

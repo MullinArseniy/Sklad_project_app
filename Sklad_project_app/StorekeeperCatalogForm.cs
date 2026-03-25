@@ -18,6 +18,14 @@ namespace SkladApp
                 + " " + CurrentUser.User.Name;
         }
 
+        private void StorekeeperCatalogForm_Load(object sender, EventArgs e)
+        {
+            LoadCategoriesToFilter();
+            LoadProducts();
+            panelView.Visible = false;
+        }
+
+
         private void LoadCategoriesToFilter()
         {
             using (var db = new SkladContext())
@@ -163,11 +171,23 @@ namespace SkladApp
             }
         }
 
-        private void StorekeeperCatalogForm_Load(object sender, EventArgs e)
+
+        private void btnView_Click(object sender, EventArgs e)
         {
-            LoadCategoriesToFilter();
-            LoadProducts();
-            panelView.Visible = false;
+            if (dgvProducts.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите товар для просмотра!");
+                return;
+            }
+
+            var row = dgvProducts.SelectedRows[0];
+            if (!int.TryParse(row.Cells["colId"].Value?.ToString(), out _selectedProductId))
+                return;
+
+            LoadProductToViewPanel(_selectedProductId);
+            lblPanelTitle.Text = "ПРОСМОТР ТОВАРА";
+            panelView.Visible = true;
+            panelView.BringToFront();
         }
 
         private void LoadProductToViewPanel(int productId)
@@ -216,24 +236,6 @@ namespace SkladApp
                     txtRestView.Text = "—";
                 }
             }
-        }
-
-        private void btnView_Click(object sender, EventArgs e)
-        {
-            if (dgvProducts.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Выберите товар для просмотра!");
-                return;
-            }
-
-            var row = dgvProducts.SelectedRows[0];
-            if (!int.TryParse(row.Cells["colId"].Value?.ToString(), out _selectedProductId))
-                return;
-
-            LoadProductToViewPanel(_selectedProductId);
-            lblPanelTitle.Text = "ПРОСМОТР ТОВАРА";
-            panelView.Visible = true;
-            panelView.BringToFront();
         }
 
         private void btnCloseView_Click(object sender, EventArgs e)

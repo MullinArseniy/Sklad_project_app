@@ -17,6 +17,14 @@ namespace Sklad_project_2
                 + " " + CurrentUser.User.Name;
         }
 
+        private void AdminCatalogForm_Load(object sender, EventArgs e)
+        {
+            LoadCategoriesToFilter();
+            LoadProducts();
+            panelEdit.Visible = false;
+            panelEdit.BringToFront();
+        }
+
         private void LoadCategoriesToFilter()
         {
             using (var db = new SkladContext())
@@ -158,111 +166,6 @@ namespace Sklad_project_2
             }
         }
 
-        private void AdminCatalogForm_Load(object sender, EventArgs e)
-        {
-            LoadCategoriesToFilter();
-            LoadProducts();
-            panelEdit.Visible = false;
-            panelEdit.BringToFront();
-        }
-
-        private void LoadCategoriesToEditPanel()
-        {
-            using (var db = new SkladContext())
-            {
-                var cats = db.Categories.ToList();
-                cmbCategoryEdit.Items.Clear();
-                foreach (var c in cats)
-                    cmbCategoryEdit.Items.Add(c.Name);
-            }
-        }
-
-        private void LoadUnitsToCmbUnit()
-        {
-            using (var db = new SkladContext())
-            {
-                var units = db.Units.ToList();
-                cmbUnitEdit.Items.Clear();
-                foreach (var u in units)
-                    cmbUnitEdit.Items.Add(u.Name);
-            }
-        }
-
-        private void LoadProductToEditPanel(int productId)
-        {
-            using (var db = new SkladContext())
-            {
-                var allProducts = db.Products
-                    .Include("Category")
-                    .Include("Unit")
-                    .Include("Stock")
-                    .ToList();
-
-                Product p = null;
-                foreach (var prod in allProducts)
-                {
-                    if (prod.Id == productId)
-                    {
-                        p = prod;
-                        break;
-                    }
-                }
-
-                if (p == null) return;
-
-                txtArticleEdit.ReadOnly = false;
-                txtNameEdit.ReadOnly = false;
-                cmbCategoryEdit.Enabled = true;
-                cmbUnitEdit.Enabled = true;
-                txtPriceEdit.ReadOnly = false;
-                txtRestEdit.ReadOnly = false;
-                btnSaveEdit.Visible = true;
-
-                txtArticleEdit.Text = p.Article;
-                txtNameEdit.Text = p.Name;
-
-                if (p.Category != null)
-                    cmbCategoryEdit.SelectedItem = p.Category.Name;
-
-                if (p.Unit != null)
-                    cmbUnitEdit.SelectedItem = p.Unit.Name;
-
-                if (p.Stock != null)
-                {
-                    txtPriceEdit.Text = p.Stock.PurchasePrice.ToString("0");
-                    txtRestEdit.Text = p.Stock.Rest.ToString();
-                }
-                else
-                {
-                    txtPriceEdit.Text = "0";
-                    txtRestEdit.Text = "0";
-                }
-            }
-        }
-
-        private void ClearEditPanel()
-        {
-            txtArticleEdit.Text = "";
-            txtNameEdit.Text = "";
-
-            if (cmbCategoryEdit.Items.Count > 0)
-                cmbCategoryEdit.SelectedIndex = 0;
-
-            if (cmbUnitEdit.Items.Count > 0)
-                cmbUnitEdit.SelectedIndex = 0;
-
-            txtPriceEdit.Text = "";
-            txtRestEdit.Text = "";
-
-            txtArticleEdit.ReadOnly = false;
-            txtNameEdit.ReadOnly = false;
-            cmbCategoryEdit.Enabled = true;
-            cmbUnitEdit.Enabled = true;
-            txtPriceEdit.ReadOnly = false;
-            txtRestEdit.ReadOnly = false;
-            btnSaveEdit.Visible = true;
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             _panelMode = "add";
@@ -397,7 +300,102 @@ namespace Sklad_project_2
             this.Close();
         }
 
-        
+        private void LoadCategoriesToEditPanel()
+        {
+            using (var db = new SkladContext())
+            {
+                var cats = db.Categories.ToList();
+                cmbCategoryEdit.Items.Clear();
+                foreach (var c in cats)
+                    cmbCategoryEdit.Items.Add(c.Name);
+            }
+        }
+
+        private void LoadUnitsToCmbUnit()
+        {
+            using (var db = new SkladContext())
+            {
+                var units = db.Units.ToList();
+                cmbUnitEdit.Items.Clear();
+                foreach (var u in units)
+                    cmbUnitEdit.Items.Add(u.Name);
+            }
+        }
+
+        private void LoadProductToEditPanel(int productId)
+        {
+            using (var db = new SkladContext())
+            {
+                var allProducts = db.Products
+                    .Include("Category")
+                    .Include("Unit")
+                    .Include("Stock")
+                    .ToList();
+
+                Product p = null;
+                foreach (var prod in allProducts)
+                {
+                    if (prod.Id == productId)
+                    {
+                        p = prod;
+                        break;
+                    }
+                }
+
+                if (p == null) return;
+
+                txtArticleEdit.ReadOnly = false;
+                txtNameEdit.ReadOnly = false;
+                cmbCategoryEdit.Enabled = true;
+                cmbUnitEdit.Enabled = true;
+                txtPriceEdit.ReadOnly = false;
+                txtRestEdit.ReadOnly = false;
+                btnSaveEdit.Visible = true;
+
+                txtArticleEdit.Text = p.Article;
+                txtNameEdit.Text = p.Name;
+
+                if (p.Category != null)
+                    cmbCategoryEdit.SelectedItem = p.Category.Name;
+
+                if (p.Unit != null)
+                    cmbUnitEdit.SelectedItem = p.Unit.Name;
+
+                if (p.Stock != null)
+                {
+                    txtPriceEdit.Text = p.Stock.PurchasePrice.ToString("0");
+                    txtRestEdit.Text = p.Stock.Rest.ToString();
+                }
+                else
+                {
+                    txtPriceEdit.Text = "0";
+                    txtRestEdit.Text = "0";
+                }
+            }
+        }
+
+        private void ClearEditPanel()
+        {
+            txtArticleEdit.Text = "";
+            txtNameEdit.Text = "";
+
+            if (cmbCategoryEdit.Items.Count > 0)
+                cmbCategoryEdit.SelectedIndex = 0;
+
+            if (cmbUnitEdit.Items.Count > 0)
+                cmbUnitEdit.SelectedIndex = 0;
+
+            txtPriceEdit.Text = "";
+            txtRestEdit.Text = "";
+
+            txtArticleEdit.ReadOnly = false;
+            txtNameEdit.ReadOnly = false;
+            cmbCategoryEdit.Enabled = true;
+            cmbUnitEdit.Enabled = true;
+            txtPriceEdit.ReadOnly = false;
+            txtRestEdit.ReadOnly = false;
+            btnSaveEdit.Visible = true;
+        }
 
         private void btnSaveEdit_Click(object sender, EventArgs e)
         {

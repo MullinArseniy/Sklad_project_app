@@ -9,6 +9,11 @@ namespace Sklad_project_2
             InitializeComponent();
         }
 
+        private void MyShipmentsForm_Load(object sender, EventArgs e)
+        {
+            LoadMyShipments();
+        }
+
         private void LoadMyShipments()
         {
             using (var db = new SkladContext())
@@ -42,10 +47,6 @@ namespace Sklad_project_2
                     }
                 }
             }
-        }
-        private void MyShipmentsForm_Load(object sender, EventArgs e)
-        {
-            LoadMyShipments();
         }
     }
 }
