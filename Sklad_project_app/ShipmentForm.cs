@@ -398,5 +398,10 @@ namespace Sklad_project_app
         {
             LoadProducts();
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
