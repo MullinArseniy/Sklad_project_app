@@ -188,8 +188,6 @@ namespace Sklad_project_app.Tests
                 TestDbHelper.SeedTestData(db);
 
                 var role = db.Roles.First(); 
-
-                // Имитируем логику из RegisterForm.btnRegister_Click
                 var parts = inputFio.Split(' ');
                 var surname = "";
                 var name = "";
@@ -205,7 +203,7 @@ namespace Sklad_project_app.Tests
                     Surname = surname,
                     Name = name,
                     Patronymic = patronymic,
-                    Login = inputFio, // В коде Login = fio
+                    Login = inputFio, 
                     Password = PasswordHasher.HashPassword("pass123"),
                     Role_id = role.Id
                 };
@@ -214,7 +212,6 @@ namespace Sklad_project_app.Tests
                 db.Users.Add(newUser);
                 db.SaveChanges();
 
-                // Ищем пользователя так же, как в LoginForm
                 User foundUser = null;
                 var allUsers = db.Users.ToList();
                 foreach (var u in allUsers)

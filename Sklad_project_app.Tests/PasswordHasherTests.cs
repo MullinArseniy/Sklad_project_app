@@ -48,6 +48,7 @@ namespace SkladApp.Tests
             Assert.AreNotEqual(firstHash, secondHash);
         }
 
+     
         [Test]
         public void VerifyPassword_CorrectPasswordReturnsTrue()
         {
