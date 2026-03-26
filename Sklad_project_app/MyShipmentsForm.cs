@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Sklad_project_2
+namespace Sklad_project_app
 {
     public partial class MyShipmentsForm : Form
     {
@@ -18,7 +18,8 @@ namespace Sklad_project_2
         {
             using (var db = new SkladContext())
             {
-                var userId = CurrentUser.User.Id;
+                var currentUserId = CurrentUser.User.Id;
+
                 var allShipments = db.Shipments
                     .Include("Client")
                     .Include("ShipmentItems")
@@ -31,20 +32,31 @@ namespace Sklad_project_2
                 dgvMyShipments.Columns.Add("colDate", "Дата");
                 dgvMyShipments.Columns.Add("colItems", "Товаров");
 
-                foreach (var s in allShipments)
+                foreach (var shipment in allShipments)
                 {
-                    if (s.UserId == userId)
+                    if (shipment.UserId != currentUserId)
                     {
-                        var clientName = "—";
-                        var date = "—";
-                        int itemCount = 0;
-
-                        if (s.Client != null) clientName = s.Client.Name;
-                        if (s.ShipmentDate != null) date = s.ShipmentDate.Value.ToString("dd.MM.yyyy");
-                        if (s.ShipmentItems != null) itemCount = s.ShipmentItems.Count;
-
-                        dgvMyShipments.Rows.Add(s.Id, clientName, date, itemCount);
+                        continue;
                     }
+
+                    var clientName = "—";
+                    var date = "—";
+                    int itemCount = 0;
+
+                    if (shipment.Client != null)
+                    {
+                        clientName = shipment.Client.Name;
+                    }
+                    if (shipment.ShipmentDate != null)
+                    {
+                        date = shipment.ShipmentDate.Value.ToString("dd.MM.yyyy");
+                    }
+                    if (shipment.ShipmentItems != null)
+                    {
+                        itemCount = shipment.ShipmentItems.Count;
+                    }
+
+                    dgvMyShipments.Rows.Add(shipment.Id, clientName, date, itemCount);
                 }
             }
         }

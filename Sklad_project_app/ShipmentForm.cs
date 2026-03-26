@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using Sklad_project_2.Models;
+using Sklad_project_app.Models;
+using Sklad_project_app;
 
-namespace Sklad_project_2
+namespace Sklad_project_app
 {
     public partial class ShipmentForm : Form
     {
-        private Dictionary<int, int> _shipmentItems = new Dictionary<int, int>();
+        private Dictionary<Guid, int> _shipmentItems = new Dictionary<Guid, int>();
 
         public ShipmentForm()
         {
             InitializeComponent();
-            lblUserInfo.Text = "Кладовщик: " + CurrentUser.User.Surname
-                + " " + CurrentUser.User.Name;
+            lblUserInfo.Text = AppResources.LblStorekeeper
+                + CurrentUser.User.Surname + " " + CurrentUser.User.Name;
         }
 
         private void ShipmentForm_Load(object sender, EventArgs e)
@@ -26,18 +26,20 @@ namespace Sklad_project_2
         {
             using (var db = new SkladContext())
             {
-                var cats = db.Categories.ToList();
+                var categories = db.Categories.ToList();
                 cmbCategory.Items.Clear();
-                cmbCategory.Items.Add("Все категории");
-                foreach (var c in cats)
-                    cmbCategory.Items.Add(c.Name);
+                cmbCategory.Items.Add(AppResources.FilterAll);
+                foreach (var category in categories)
+                {
+                    cmbCategory.Items.Add(category.Name);
+                }
                 cmbCategory.SelectedIndex = 0;
             }
 
             cmbAvailability.Items.Clear();
-            cmbAvailability.Items.Add("Все");
-            cmbAvailability.Items.Add("В наличии");
-            cmbAvailability.Items.Add("Нет в наличии");
+            cmbAvailability.Items.Add(AppResources.FilterAvailAll);
+            cmbAvailability.Items.Add(AppResources.FilterAvailIn);
+            cmbAvailability.Items.Add(AppResources.FilterAvailOut);
             cmbAvailability.SelectedIndex = 0;
         }
 
@@ -59,15 +61,24 @@ namespace Sklad_project_2
                 }
                 else
                 {
-                    foreach (var p in allProducts)
+                    foreach (var product in allProducts)
                     {
-                        var pName = "";
-                        var pArticle = "";
-                        if (p.Name != null) pName = p.Name.ToLower();
-                        if (p.Article != null) pArticle = p.Article.ToLower();
+                        var productName = "";
+                        var productArticle = "";
 
-                        if (pName.Contains(searchText) || pArticle.Contains(searchText))
-                            afterSearch.Add(p);
+                        if (product.Name != null)
+                        {
+                            productName = product.Name.ToLower();
+                        }
+                        if (product.Article != null)
+                        {
+                            productArticle = product.Article.ToLower();
+                        }
+
+                        if (productName.Contains(searchText) || productArticle.Contains(searchText))
+                        {
+                            afterSearch.Add(product);
+                        }
                     }
                 }
 
@@ -78,29 +89,35 @@ namespace Sklad_project_2
                 }
                 else
                 {
-                    var catName = cmbCategory.SelectedItem.ToString();
-                    foreach (var p in afterSearch)
+                    var selectedCategoryName = cmbCategory.SelectedItem.ToString();
+                    foreach (var product in afterSearch)
                     {
-                        if (p.Category != null && p.Category.Name == catName)
-                            afterCategory.Add(p);
+                        if (product.Category != null && product.Category.Name == selectedCategoryName)
+                        {
+                            afterCategory.Add(product);
+                        }
                     }
                 }
 
                 var afterAvailability = new List<Product>();
                 if (cmbAvailability.SelectedIndex == 1)
                 {
-                    foreach (var p in afterCategory)
+                    foreach (var product in afterCategory)
                     {
-                        if (p.Stock != null && p.Stock.Rest > 0)
-                            afterAvailability.Add(p);
+                        if (product.Stock != null && product.Stock.Rest > 0)
+                        {
+                            afterAvailability.Add(product);
+                        }
                     }
                 }
                 else if (cmbAvailability.SelectedIndex == 2)
                 {
-                    foreach (var p in afterCategory)
+                    foreach (var product in afterCategory)
                     {
-                        if (p.Stock == null || p.Stock.Rest == 0)
-                            afterAvailability.Add(p);
+                        if (product.Stock == null || product.Stock.Rest == 0)
+                        {
+                            afterAvailability.Add(product);
+                        }
                     }
                 }
                 else
@@ -111,11 +128,11 @@ namespace Sklad_project_2
                 dgvShipment.Rows.Clear();
                 dgvShipment.Columns.Clear();
 
-                dgvShipment.Columns.Add("colArticle", "Артикул");
-                dgvShipment.Columns.Add("colName", "Наименование товара");
-                dgvShipment.Columns.Add("colCategory", "Категория");
-                dgvShipment.Columns.Add("colPrice", "Цена закупки");
-                dgvShipment.Columns.Add("colRest", "Остаток");
+                dgvShipment.Columns.Add("colArticle", AppResources.ColArticle);
+                dgvShipment.Columns.Add("colName", AppResources.ColName);
+                dgvShipment.Columns.Add("colCategory", AppResources.ColCategory);
+                dgvShipment.Columns.Add("colPrice", AppResources.ColPrice);
+                dgvShipment.Columns.Add("colRest", AppResources.ColRest);
 
                 var btnMinus = new DataGridViewButtonColumn();
                 btnMinus.Name = "colMinus";
@@ -136,25 +153,31 @@ namespace Sklad_project_2
                 dgvShipment.Columns.Add("colId", "ID");
                 dgvShipment.Columns["colId"].Visible = false;
 
-                foreach (var p in afterAvailability)
+                foreach (var product in afterAvailability)
                 {
                     var price = "—";
                     var rest = "0";
-                    var catName = "";
+                    var categoryName = "";
 
-                    if (p.Stock != null)
+                    if (product.Stock != null)
                     {
-                        price = p.Stock.PurchasePrice.ToString("0") + " руб.";
-                        rest = p.Stock.Rest.ToString();
+                        price = product.Stock.PurchasePrice.ToString("0") + " руб.";
+                        rest = product.Stock.Rest.ToString();
                     }
 
-                    if (p.Category != null) catName = p.Category.Name;
+                    if (product.Category != null)
+                    {
+                        categoryName = product.Category.Name;
+                    }
 
                     int qty = 0;
-                    if (_shipmentItems.ContainsKey(p.Id))
-                        qty = _shipmentItems[p.Id];
+                    if (_shipmentItems.ContainsKey(product.Id))
+                    {
+                        qty = _shipmentItems[product.Id];
+                    }
 
-                    dgvShipment.Rows.Add(p.Article, p.Name, catName, price, rest, "-", qty.ToString(), "+", p.Id);
+                    dgvShipment.Rows.Add(product.Article, product.Name,
+                        categoryName, price, rest, "-", qty.ToString(), "+", product.Id);
                 }
 
                 UpdateTotal();
@@ -163,30 +186,41 @@ namespace Sklad_project_2
 
         private void dgvShipment_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
-
-            int productId;
-            if (!int.TryParse(dgvShipment.Rows[e.RowIndex].Cells["colId"].Value?.ToString(), out productId))
+            if (e.RowIndex < 0)
+            {
                 return;
+            }
+
+            var idValue = dgvShipment.Rows[e.RowIndex].Cells["colId"].Value?.ToString();
+            Guid productId;
+            if (!Guid.TryParse(idValue, out productId))
+            {
+                return;
+            }
 
             int rest;
             if (!int.TryParse(dgvShipment.Rows[e.RowIndex].Cells["colRest"].Value?.ToString(), out rest))
+            {
                 rest = 0;
+            }
 
             int currentQty = 0;
             if (_shipmentItems.ContainsKey(productId))
+            {
                 currentQty = _shipmentItems[productId];
+            }
 
             if (e.ColumnIndex == dgvShipment.Columns["colPlus"].Index)
             {
                 if (currentQty < rest)
                 {
                     _shipmentItems[productId] = currentQty + 1;
-                    dgvShipment.Rows[e.RowIndex].Cells["colQty"].Value = _shipmentItems[productId].ToString();
+                    dgvShipment.Rows[e.RowIndex].Cells["colQty"].Value =
+                        _shipmentItems[productId].ToString();
                 }
                 else
                 {
-                    MessageBox.Show("Недостаточно товара на складе!");
+                    MessageBox.Show(AppResources.MsgNotEnough);
                 }
             }
             else if (e.ColumnIndex == dgvShipment.Columns["colMinus"].Index)
@@ -194,7 +228,8 @@ namespace Sklad_project_2
                 if (currentQty > 0)
                 {
                     _shipmentItems[productId] = currentQty - 1;
-                    dgvShipment.Rows[e.RowIndex].Cells["colQty"].Value = _shipmentItems[productId].ToString();
+                    dgvShipment.Rows[e.RowIndex].Cells["colQty"].Value =
+                        _shipmentItems[productId].ToString();
                 }
             }
 
@@ -204,9 +239,11 @@ namespace Sklad_project_2
         private void UpdateTotal()
         {
             int total = 0;
-            foreach (var kv in _shipmentItems)
-                total += kv.Value;
-            lblTotal.Text = "ВЗЯТО ТОВАРОВ:\n" + total.ToString();
+            foreach (var item in _shipmentItems)
+            {
+                total += item.Value;
+            }
+            lblTotal.Text = AppResources.LblTotalItems + "\n" + total.ToString();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -214,20 +251,22 @@ namespace Sklad_project_2
             var clientName = txtClientName.Text.Trim();
             if (string.IsNullOrEmpty(clientName))
             {
-                MessageBox.Show("Введите название клиента!");
+                MessageBox.Show(AppResources.MsgClientEmpty);
                 return;
             }
 
-            var itemsToShip = new Dictionary<int, int>();
-            foreach (var kv in _shipmentItems)
+            var itemsToShip = new Dictionary<Guid, int>();
+            foreach (var item in _shipmentItems)
             {
-                if (kv.Value > 0)
-                    itemsToShip.Add(kv.Key, kv.Value);
+                if (item.Value > 0)
+                {
+                    itemsToShip.Add(item.Key, item.Value);
+                }
             }
 
             if (itemsToShip.Count == 0)
             {
-                MessageBox.Show("Выберите товары для отгрузки!");
+                MessageBox.Show(AppResources.MsgNoItems);
                 return;
             }
 
@@ -235,78 +274,98 @@ namespace Sklad_project_2
             {
                 foreach (var item in itemsToShip)
                 {
-                    Stock foundStock = null;
-                    var allStocks = db.Stocks.ToList();
-                    foreach (var s in allStocks)
-                    {
-                        if (s.ProductId == item.Key)
-                        {
-                            foundStock = s;
-                            break;
-                        }
-                    }
+                    var foundStock = db.Stocks
+                        .Where(stock => stock.ProductId == item.Key)
+                        .FirstOrDefault();
 
                     if (foundStock == null || foundStock.Rest < item.Value)
                     {
-                        var product = db.Products.Find(item.Key);
+                        var foundProduct = db.Products.Find(item.Key);
                         var productName = "";
-                        if (product != null) productName = product.Name;
-                        MessageBox.Show("Недостаточно товара: " + productName);
+                        if (foundProduct != null)
+                        {
+                            productName = foundProduct.Name;
+                        }
+                        MessageBox.Show(AppResources.MsgNotEnough + " " + productName);
                         return;
                     }
                 }
 
-                Client foundClient = null;
-                var allClients = db.Clients.ToList();
-                foreach (var c in allClients)
-                {
-                    if (c.Name == clientName)
-                    {
-                        foundClient = c;
-                        break;
-                    }
-                }
+                var foundClient = db.Clients
+                    .Where(client => client.Name == clientName)
+                    .FirstOrDefault();
 
                 if (foundClient == null)
                 {
-                    foundClient = new Client { Name = clientName };
+                    foundClient = new Client
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = clientName
+                    };
                     db.Clients.Add(foundClient);
-                    db.SaveChanges();
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                        return;
+                    }
                 }
 
-                var shipment = new Shipment
+                var newShipment = new Shipment
                 {
+                    Id = Guid.NewGuid(),
                     ClientId = foundClient.Id,
                     UserId = CurrentUser.User.Id,
-                    ShipmentDate = dtpDate.Value.Date
+                    ShipmentDate = dtpDate.Value.ToUniversalTime()
                 };
-                db.Shipments.Add(shipment);
-                db.SaveChanges();
+                db.Shipments.Add(newShipment);
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                    return;
+                }
 
                 foreach (var item in itemsToShip)
                 {
                     db.ShipmentItems.Add(new ShipmentItem
                     {
-                        ShipmentId = shipment.Id,
+                        Id = Guid.NewGuid(),
+                        ShipmentId = newShipment.Id,
                         ProductId = item.Key,
                         Quantity = item.Value
                     });
 
-                    var allStocks = db.Stocks.ToList();
-                    foreach (var s in allStocks)
+                    var foundStock = db.Stocks
+                        .Where(stock => stock.ProductId == item.Key)
+                        .FirstOrDefault();
+
+                    if (foundStock != null)
                     {
-                        if (s.ProductId == item.Key)
-                        {
-                            s.Rest -= item.Value;
-                            break;
-                        }
+                        foundStock.Rest -= item.Value;
                     }
                 }
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                    return;
+                }
             }
 
-            MessageBox.Show("Отгрузка успешно оформлена!");
+            MessageBox.Show(AppResources.MsgShipSuccess);
             _shipmentItems.Clear();
             this.Close();
         }

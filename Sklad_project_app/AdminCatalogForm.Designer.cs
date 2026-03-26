@@ -1,7 +1,6 @@
-﻿
-using Sklad_project_2.Models;
+﻿using Sklad_project_app.Models;
 
-namespace Sklad_project_2
+namespace Sklad_project_app
 {
     partial class AdminCatalogForm
     {
@@ -16,7 +15,7 @@ namespace Sklad_project_2
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panelTop = new Panel();
             lblCompany = new Label();
             lblUserInfo = new Label();
@@ -106,9 +105,9 @@ namespace Sklad_project_2
             // 
             btnLogout.BackColor = Color.FromArgb(210, 220, 235);
             btnLogout.FlatStyle = FlatStyle.Flat;
-            btnLogout.Location = new Point(1020, 5);
+            btnLogout.Location = new Point(1018, 2);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(70, 25);
+            btnLogout.Size = new Size(70, 30);
             btnLogout.TabIndex = 2;
             btnLogout.Text = "Выход";
             btnLogout.UseVisualStyleBackColor = false;
@@ -218,7 +217,7 @@ namespace Sklad_project_2
             btnView.ForeColor = Color.White;
             btnView.Location = new Point(334, 8);
             btnView.Name = "btnView";
-            btnView.Size = new Size(100, 28);
+            btnView.Size = new Size(128, 28);
             btnView.TabIndex = 3;
             btnView.Text = "Просмотреть";
             btnView.UseVisualStyleBackColor = false;
@@ -229,7 +228,7 @@ namespace Sklad_project_2
             btnRefresh.BackColor = Color.FromArgb(70, 70, 70);
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(442, 8);
+            btnRefresh.Location = new Point(468, 8);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(100, 28);
             btnRefresh.TabIndex = 4;
@@ -253,7 +252,7 @@ namespace Sklad_project_2
             panelFilters.Controls.Add(btnReset);
             panelFilters.Location = new Point(140, 80);
             panelFilters.Name = "panelFilters";
-            panelFilters.Size = new Size(960, 75);
+            panelFilters.Size = new Size(960, 113);
             panelFilters.TabIndex = 3;
             // 
             // lblSearch
@@ -278,16 +277,17 @@ namespace Sklad_project_2
             // 
             lblCategory.AutoSize = true;
             lblCategory.Font = new Font("Arial", 8F);
-            lblCategory.Location = new Point(185, 8);
+            lblCategory.Location = new Point(203, 6);
             lblCategory.Name = "lblCategory";
             lblCategory.Size = new Size(79, 16);
             lblCategory.TabIndex = 2;
             lblCategory.Text = "Категория:";
+            lblCategory.Click += btnCategories_Click;
             // 
             // cmbCategory
             // 
             cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbCategory.Location = new Point(185, 25);
+            cmbCategory.Location = new Point(203, 25);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(160, 28);
             cmbCategory.TabIndex = 3;
@@ -297,7 +297,7 @@ namespace Sklad_project_2
             // 
             lblAvailability.AutoSize = true;
             lblAvailability.Font = new Font("Arial", 8F);
-            lblAvailability.Location = new Point(360, 8);
+            lblAvailability.Location = new Point(378, 8);
             lblAvailability.Name = "lblAvailability";
             lblAvailability.Size = new Size(67, 16);
             lblAvailability.TabIndex = 4;
@@ -306,7 +306,7 @@ namespace Sklad_project_2
             // cmbAvailability
             // 
             cmbAvailability.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbAvailability.Location = new Point(360, 25);
+            cmbAvailability.Location = new Point(378, 25);
             cmbAvailability.Name = "cmbAvailability";
             cmbAvailability.Size = new Size(130, 28);
             cmbAvailability.TabIndex = 5;
@@ -316,7 +316,7 @@ namespace Sklad_project_2
             // 
             lblPrice.AutoSize = true;
             lblPrice.Font = new Font("Arial", 8F);
-            lblPrice.Location = new Point(505, 8);
+            lblPrice.Location = new Point(523, 8);
             lblPrice.Name = "lblPrice";
             lblPrice.Size = new Size(45, 16);
             lblPrice.TabIndex = 6;
@@ -324,7 +324,7 @@ namespace Sklad_project_2
             // 
             // txtPriceFrom
             // 
-            txtPriceFrom.Location = new Point(505, 25);
+            txtPriceFrom.Location = new Point(523, 25);
             txtPriceFrom.Name = "txtPriceFrom";
             txtPriceFrom.Size = new Size(70, 27);
             txtPriceFrom.TabIndex = 7;
@@ -332,7 +332,7 @@ namespace Sklad_project_2
             // 
             // txtPriceTo
             // 
-            txtPriceTo.Location = new Point(585, 25);
+            txtPriceTo.Location = new Point(603, 25);
             txtPriceTo.Name = "txtPriceTo";
             txtPriceTo.Size = new Size(70, 27);
             txtPriceTo.TabIndex = 8;
@@ -342,7 +342,7 @@ namespace Sklad_project_2
             // 
             lblFound.AutoSize = true;
             lblFound.Font = new Font("Arial", 9F, FontStyle.Bold);
-            lblFound.Location = new Point(10, 52);
+            lblFound.Location = new Point(10, 75);
             lblFound.Name = "lblFound";
             lblFound.Size = new Size(121, 18);
             lblFound.TabIndex = 9;
@@ -351,9 +351,9 @@ namespace Sklad_project_2
             // btnReset
             // 
             btnReset.FlatStyle = FlatStyle.Flat;
-            btnReset.Location = new Point(120, 50);
+            btnReset.Location = new Point(137, 69);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(93, 22);
+            btnReset.Size = new Size(92, 29);
             btnReset.TabIndex = 10;
             btnReset.Text = "Сбросить";
             btnReset.Click += btnReset_Click;
@@ -365,24 +365,24 @@ namespace Sklad_project_2
             dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProducts.BackgroundColor = Color.White;
             dgvProducts.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(50, 50, 50);
-            dataGridViewCellStyle1.Font = new Font("Arial", 9F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle2.Font = new Font("Arial", 9F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvProducts.ColumnHeadersHeight = 29;
             dgvProducts.EnableHeadersVisualStyles = false;
-            dgvProducts.Location = new Point(140, 155);
+            dgvProducts.Location = new Point(140, 197);
             dgvProducts.MultiSelect = false;
             dgvProducts.Name = "dgvProducts";
             dgvProducts.ReadOnly = true;
             dgvProducts.RowHeadersVisible = false;
             dgvProducts.RowHeadersWidth = 51;
             dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProducts.Size = new Size(960, 445);
+            dgvProducts.Size = new Size(960, 411);
             dgvProducts.TabIndex = 5;
             // 
             // panelEdit

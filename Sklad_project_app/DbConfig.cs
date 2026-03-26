@@ -1,4 +1,4 @@
-﻿namespace Sklad_project_2
+﻿namespace Sklad_project_app
 {
     public static class DbConfig
     {

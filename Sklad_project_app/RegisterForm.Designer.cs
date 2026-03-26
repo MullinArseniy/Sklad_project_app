@@ -1,5 +1,5 @@
 ﻿
-namespace Sklad_project_2
+namespace Sklad_project_app
 {
     partial class RegisterForm
     {
@@ -14,126 +14,169 @@ namespace Sklad_project_2
 
         private void InitializeComponent()
         {
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.lblCompany = new System.Windows.Forms.Label();
-            this.panelReg = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblFio = new System.Windows.Forms.Label();
-            this.txtFio = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.lblChoose = new System.Windows.Forms.Label();
-            this.chkAdmin = new System.Windows.Forms.CheckBox();
-            this.chkStorekeeper = new System.Windows.Forms.CheckBox();
-            this.btnRegister = new System.Windows.Forms.Button();
-            this.panelTop.SuspendLayout();
-            this.panelReg.SuspendLayout();
-            this.SuspendLayout();
-
+            panelTop = new Panel();
+            lblCompany = new Label();
+            panelReg = new Panel();
+            lblTitle = new Label();
+            lblFio = new Label();
+            txtFio = new TextBox();
+            lblPassword = new Label();
+            txtPassword = new TextBox();
+            lblChoose = new Label();
+            chkAdmin = new CheckBox();
+            chkStorekeeper = new CheckBox();
+            btnRegister = new Button();
+            panelTop.SuspendLayout();
+            panelReg.SuspendLayout();
+            SuspendLayout();
+            // 
             // panelTop
-            this.panelTop.BackColor = System.Drawing.Color.FromArgb(30, 100, 200);
-            this.panelTop.Controls.Add(this.lblCompany);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Size = new System.Drawing.Size(800, 35);
-
+            // 
+            panelTop.BackColor = Color.FromArgb(30, 100, 200);
+            panelTop.Controls.Add(lblCompany);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 0);
+            panelTop.Name = "panelTop";
+            panelTop.Size = new Size(800, 35);
+            panelTop.TabIndex = 0;
+            // 
             // lblCompany
-            this.lblCompany.AutoSize = true;
-            this.lblCompany.ForeColor = System.Drawing.Color.White;
-            this.lblCompany.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.lblCompany.Location = new System.Drawing.Point(10, 8);
-            this.lblCompany.Text = "ООО \"Птички-тупички\" - система управления складом";
-
+            // 
+            lblCompany.AutoSize = true;
+            lblCompany.Font = new Font("Arial", 10F, FontStyle.Bold);
+            lblCompany.ForeColor = Color.White;
+            lblCompany.Location = new Point(10, 8);
+            lblCompany.Name = "lblCompany";
+            lblCompany.Size = new Size(463, 19);
+            lblCompany.TabIndex = 0;
+            lblCompany.Text = "ООО \"Птички-тупички\" - система управления складом";
+            // 
             // panelReg
-            this.panelReg.BackColor = System.Drawing.Color.FromArgb(30, 100, 200);
-            this.panelReg.Controls.Add(this.lblTitle);
-            this.panelReg.Controls.Add(this.lblFio);
-            this.panelReg.Controls.Add(this.txtFio);
-            this.panelReg.Controls.Add(this.lblPassword);
-            this.panelReg.Controls.Add(this.txtPassword);
-            this.panelReg.Controls.Add(this.lblChoose);
-            this.panelReg.Controls.Add(this.chkAdmin);
-            this.panelReg.Controls.Add(this.chkStorekeeper);
-            this.panelReg.Controls.Add(this.btnRegister);
-            this.panelReg.Location = new System.Drawing.Point(270, 100);
-            this.panelReg.Size = new System.Drawing.Size(260, 260);
-
+            // 
+            panelReg.BackColor = Color.FromArgb(30, 100, 200);
+            panelReg.Controls.Add(lblTitle);
+            panelReg.Controls.Add(lblFio);
+            panelReg.Controls.Add(txtFio);
+            panelReg.Controls.Add(lblPassword);
+            panelReg.Controls.Add(txtPassword);
+            panelReg.Controls.Add(lblChoose);
+            panelReg.Controls.Add(chkAdmin);
+            panelReg.Controls.Add(chkStorekeeper);
+            panelReg.Controls.Add(btnRegister);
+            panelReg.Location = new Point(270, 100);
+            panelReg.Name = "panelReg";
+            panelReg.Size = new Size(260, 260);
+            panelReg.TabIndex = 1;
+            // 
             // lblTitle
-            this.lblTitle.AutoSize = false;
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(10, 12);
-            this.lblTitle.Size = new System.Drawing.Size(240, 20);
-            this.lblTitle.Text = "РЕГИСТРАЦИЯ В СИСТЕМЕ";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            lblTitle.Font = new Font("Arial", 10F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(10, 12);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(240, 20);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "РЕГИСТРАЦИЯ В СИСТЕМЕ";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // lblFio
-            this.lblFio.AutoSize = true;
-            this.lblFio.ForeColor = System.Drawing.Color.White;
-            this.lblFio.Font = new System.Drawing.Font("Arial", 9F);
-            this.lblFio.Location = new System.Drawing.Point(10, 42);
-            this.lblFio.Text = "Введите ФИО:";
-
+            // 
+            lblFio.AutoSize = true;
+            lblFio.Font = new Font("Arial", 9F);
+            lblFio.ForeColor = Color.White;
+            lblFio.Location = new Point(10, 42);
+            lblFio.Name = "lblFio";
+            lblFio.Size = new Size(108, 17);
+            lblFio.TabIndex = 1;
+            lblFio.Text = "Введите ФИО:";
+            // 
             // txtFio
-            this.txtFio.Location = new System.Drawing.Point(10, 60);
-            this.txtFio.Size = new System.Drawing.Size(240, 22);
-            this.txtFio.BackColor = System.Drawing.Color.FromArgb(180, 200, 230);
-
+            // 
+            txtFio.BackColor = Color.FromArgb(180, 200, 230);
+            txtFio.Location = new Point(10, 60);
+            txtFio.Name = "txtFio";
+            txtFio.Size = new Size(240, 27);
+            txtFio.TabIndex = 2;
+            // 
             // lblPassword
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.ForeColor = System.Drawing.Color.White;
-            this.lblPassword.Font = new System.Drawing.Font("Arial", 9F);
-            this.lblPassword.Location = new System.Drawing.Point(10, 90);
-            this.lblPassword.Text = "Введите пароль:";
-
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Font = new Font("Arial", 9F);
+            lblPassword.ForeColor = Color.White;
+            lblPassword.Location = new Point(10, 90);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(122, 17);
+            lblPassword.TabIndex = 3;
+            lblPassword.Text = "Введите пароль:";
+            // 
             // txtPassword
-            this.txtPassword.Location = new System.Drawing.Point(10, 108);
-            this.txtPassword.Size = new System.Drawing.Size(240, 22);
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(180, 200, 230);
-
+            // 
+            txtPassword.BackColor = Color.FromArgb(180, 200, 230);
+            txtPassword.Location = new Point(10, 108);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(240, 27);
+            txtPassword.TabIndex = 4;
+            // 
             // lblChoose
-            this.lblChoose.AutoSize = true;
-            this.lblChoose.ForeColor = System.Drawing.Color.White;
-            this.lblChoose.Font = new System.Drawing.Font("Arial", 9F);
-            this.lblChoose.Location = new System.Drawing.Point(10, 138);
-            this.lblChoose.Text = "Выберите нужное:";
-
+            // 
+            lblChoose.AutoSize = true;
+            lblChoose.Font = new Font("Arial", 9F);
+            lblChoose.ForeColor = Color.White;
+            lblChoose.Location = new Point(10, 138);
+            lblChoose.Name = "lblChoose";
+            lblChoose.Size = new Size(133, 17);
+            lblChoose.TabIndex = 5;
+            lblChoose.Text = "Выберите нужное:";
+            // 
             // chkAdmin
-            this.chkAdmin.AutoSize = true;
-            this.chkAdmin.ForeColor = System.Drawing.Color.White;
-            this.chkAdmin.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkAdmin.Location = new System.Drawing.Point(10, 158);
-            this.chkAdmin.Text = "Администратор";
-
+            // 
+            chkAdmin.AutoSize = true;
+            chkAdmin.Font = new Font("Arial", 9F);
+            chkAdmin.ForeColor = Color.White;
+            chkAdmin.Location = new Point(10, 158);
+            chkAdmin.Name = "chkAdmin";
+            chkAdmin.Size = new Size(136, 21);
+            chkAdmin.TabIndex = 6;
+            chkAdmin.Text = "Администратор";
+            // 
             // chkStorekeeper
-            this.chkStorekeeper.AutoSize = true;
-            this.chkStorekeeper.ForeColor = System.Drawing.Color.White;
-            this.chkStorekeeper.Font = new System.Drawing.Font("Arial", 9F);
-            this.chkStorekeeper.Location = new System.Drawing.Point(10, 180);
-            this.chkStorekeeper.Text = "Кладовщик";
-
+            // 
+            chkStorekeeper.AutoSize = true;
+            chkStorekeeper.Font = new Font("Arial", 9F);
+            chkStorekeeper.ForeColor = Color.White;
+            chkStorekeeper.Location = new Point(10, 180);
+            chkStorekeeper.Name = "chkStorekeeper";
+            chkStorekeeper.Size = new Size(106, 21);
+            chkStorekeeper.TabIndex = 7;
+            chkStorekeeper.Text = "Кладовщик";
+            // 
             // btnRegister
-            this.btnRegister.Location = new System.Drawing.Point(10, 215);
-            this.btnRegister.Size = new System.Drawing.Size(100, 28);
-            this.btnRegister.Text = "Регистрация";
-            this.btnRegister.BackColor = System.Drawing.Color.FromArgb(210, 220, 235);
-            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-
+            // 
+            btnRegister.BackColor = Color.FromArgb(210, 220, 235);
+            btnRegister.FlatStyle = FlatStyle.Flat;
+            btnRegister.Location = new Point(10, 215);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(108, 28);
+            btnRegister.TabIndex = 8;
+            btnRegister.Text = "Регистрация";
+            btnRegister.UseVisualStyleBackColor = false;
+            btnRegister.Click += btnRegister_Click;
+            // 
             // RegisterForm
-            this.ClientSize = new System.Drawing.Size(800, 500);
-            this.Controls.Add(this.panelTop);
-            this.Controls.Add(this.panelReg);
-            this.Text = "Регистрация";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.BackColor = System.Drawing.Color.White;
-
-            this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
-            this.panelReg.ResumeLayout(false);
-            this.panelReg.PerformLayout();
-            this.ResumeLayout(false);
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(800, 500);
+            Controls.Add(panelTop);
+            Controls.Add(panelReg);
+            Name = "RegisterForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Регистрация";
+            panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
+            panelReg.ResumeLayout(false);
+            panelReg.PerformLayout();
+            ResumeLayout(false);
         }
 
         private System.Windows.Forms.Panel panelTop;
