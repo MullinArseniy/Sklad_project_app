@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Sklad_project_2.Models;
-using SkladApp;
+using Sklad_project_app.Models;
 
-namespace Sklad_project_2
+
+namespace Sklad_project_app
 {
     public partial class LoginForm : Form
     {
@@ -18,12 +18,12 @@ namespace Sklad_project_2
                 using (var db = new SkladContext())
                 {
                     db.Database.CanConnect();
-                    MessageBox.Show("Подключение успешно!");
+                    MessageBox.Show(AppResources.MsgConnectOk);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка подключения: " + ex.Message);
+                MessageBox.Show(AppResources.MsgConnectError + ex.Message);
             }
         }
 
@@ -34,7 +34,7 @@ namespace Sklad_project_2
 
             if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show(AppResources.MsgConnectError);
                 return;
             }
 
@@ -43,24 +43,30 @@ namespace Sklad_project_2
                 var allUsers = db.Users.Include("Role").ToList();
                 User foundUser = null;
 
-                foreach (var u in allUsers)
+                foreach (var user in allUsers)
                 {
                     var userLogin = "";
                     var userPassword = "";
 
-                    if (u.Login != null) userLogin = u.Login.Trim();
-                    if (u.Password != null) userPassword = u.Password.Trim();
-
-                    if (userLogin == login && userPassword == password)
+                    if (user.Login != null)
                     {
-                        foundUser = u;
+                        userLogin = user.Login.Trim();
+                    }
+                    if (user.Password != null)
+                    {
+                        userPassword = user.Password.Trim();
+                    }
+
+                    if (userLogin == login && PasswordHasher.VerifyPassword(password, userPassword))
+                    {
+                        foundUser = user;
                         break;
                     }
                 }
 
                 if (foundUser == null)
                 {
-                    MessageBox.Show("Неверный логин или пароль!");
+                    MessageBox.Show(AppResources.MsgWrongLogin);
                     return;
                 }
 

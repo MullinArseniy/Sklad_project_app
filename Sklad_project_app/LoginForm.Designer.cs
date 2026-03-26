@@ -1,4 +1,4 @@
-﻿namespace Sklad_project_2
+﻿namespace Sklad_project_app
 {
     partial class LoginForm
     {
@@ -13,109 +13,144 @@
 
         private void InitializeComponent()
         {
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.lblCompany = new System.Windows.Forms.Label();
-            this.panelLogin = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblLoginName = new System.Windows.Forms.Label();
-            this.txtLogin = new System.Windows.Forms.TextBox();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.btnRegister = new System.Windows.Forms.Button();
-            this.panelTop.SuspendLayout();
-            this.panelLogin.SuspendLayout();
-            this.SuspendLayout();
-
+            panelTop = new Panel();
+            lblCompany = new Label();
+            panelLogin = new Panel();
+            lblTitle = new Label();
+            lblLoginName = new Label();
+            txtLogin = new TextBox();
+            lblPassword = new Label();
+            txtPassword = new TextBox();
+            btnLogin = new Button();
+            btnRegister = new Button();
+            panelTop.SuspendLayout();
+            panelLogin.SuspendLayout();
+            SuspendLayout();
+            // 
             // panelTop
-            this.panelTop.BackColor = System.Drawing.Color.FromArgb(30, 100, 200);
-            this.panelTop.Controls.Add(this.lblCompany);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Size = new System.Drawing.Size(800, 35);
-
+            // 
+            panelTop.BackColor = Color.FromArgb(30, 100, 200);
+            panelTop.Controls.Add(lblCompany);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 0);
+            panelTop.Name = "panelTop";
+            panelTop.Size = new Size(800, 35);
+            panelTop.TabIndex = 0;
+            // 
             // lblCompany
-            this.lblCompany.AutoSize = true;
-            this.lblCompany.ForeColor = System.Drawing.Color.White;
-            this.lblCompany.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.lblCompany.Location = new System.Drawing.Point(10, 8);
-            this.lblCompany.Text = "ООО \"Птички-тупички\" - система управления складом";
-
+            // 
+            lblCompany.AutoSize = true;
+            lblCompany.Font = new Font("Arial", 10F, FontStyle.Bold);
+            lblCompany.ForeColor = Color.White;
+            lblCompany.Location = new Point(10, 8);
+            lblCompany.Name = "lblCompany";
+            lblCompany.Size = new Size(463, 19);
+            lblCompany.TabIndex = 0;
+            lblCompany.Text = "ООО \"Птички-тупички\" - система управления складом";
+            // 
             // panelLogin
-            this.panelLogin.BackColor = System.Drawing.Color.FromArgb(30, 100, 200);
-            this.panelLogin.Controls.Add(this.lblTitle);
-            this.panelLogin.Controls.Add(this.lblLoginName);
-            this.panelLogin.Controls.Add(this.txtLogin);
-            this.panelLogin.Controls.Add(this.lblPassword);
-            this.panelLogin.Controls.Add(this.txtPassword);
-            this.panelLogin.Controls.Add(this.btnLogin);
-            this.panelLogin.Controls.Add(this.btnRegister);
-            this.panelLogin.Location = new System.Drawing.Point(270, 120);
-            this.panelLogin.Size = new System.Drawing.Size(260, 230);
-
+            // 
+            panelLogin.BackColor = Color.FromArgb(30, 100, 200);
+            panelLogin.Controls.Add(lblTitle);
+            panelLogin.Controls.Add(lblLoginName);
+            panelLogin.Controls.Add(txtLogin);
+            panelLogin.Controls.Add(lblPassword);
+            panelLogin.Controls.Add(txtPassword);
+            panelLogin.Controls.Add(btnLogin);
+            panelLogin.Controls.Add(btnRegister);
+            panelLogin.Location = new Point(270, 120);
+            panelLogin.Name = "panelLogin";
+            panelLogin.Size = new Size(260, 230);
+            panelLogin.TabIndex = 1;
+            // 
             // lblTitle
-            this.lblTitle.AutoSize = false;
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(10, 15);
-            this.lblTitle.Size = new System.Drawing.Size(240, 20);
-            this.lblTitle.Text = "ВХОД В СИСТЕМУ";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            lblTitle.Font = new Font("Arial", 10F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.White;
+            lblTitle.Location = new Point(10, 15);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(240, 20);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "ВХОД В СИСТЕМУ";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // lblLoginName
-            this.lblLoginName.AutoSize = true;
-            this.lblLoginName.ForeColor = System.Drawing.Color.White;
-            this.lblLoginName.Font = new System.Drawing.Font("Arial", 9F);
-            this.lblLoginName.Location = new System.Drawing.Point(10, 45);
-            this.lblLoginName.Text = "ФИО пользователя:";
-
+            // 
+            lblLoginName.AutoSize = true;
+            lblLoginName.Font = new Font("Arial", 9F);
+            lblLoginName.ForeColor = Color.White;
+            lblLoginName.Location = new Point(10, 45);
+            lblLoginName.Name = "lblLoginName";
+            lblLoginName.Size = new Size(144, 17);
+            lblLoginName.TabIndex = 1;
+            lblLoginName.Text = "ФИО пользователя:";
+            // 
             // txtLogin
-            this.txtLogin.Location = new System.Drawing.Point(10, 65);
-            this.txtLogin.Size = new System.Drawing.Size(240, 22);
-            this.txtLogin.BackColor = System.Drawing.Color.FromArgb(180, 200, 230);
-
+            // 
+            txtLogin.BackColor = Color.FromArgb(180, 200, 230);
+            txtLogin.Location = new Point(10, 65);
+            txtLogin.Name = "txtLogin";
+            txtLogin.Size = new Size(240, 27);
+            txtLogin.TabIndex = 2;
+            // 
             // lblPassword
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.ForeColor = System.Drawing.Color.White;
-            this.lblPassword.Font = new System.Drawing.Font("Arial", 9F);
-            this.lblPassword.Location = new System.Drawing.Point(10, 95);
-            this.lblPassword.Text = "Пароль:";
-
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Font = new Font("Arial", 9F);
+            lblPassword.ForeColor = Color.White;
+            lblPassword.Location = new Point(10, 95);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(62, 17);
+            lblPassword.TabIndex = 3;
+            lblPassword.Text = "Пароль:";
+            // 
             // txtPassword
-            this.txtPassword.Location = new System.Drawing.Point(10, 115);
-            this.txtPassword.Size = new System.Drawing.Size(240, 22);
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(180, 200, 230);
-
+            // 
+            txtPassword.BackColor = Color.FromArgb(180, 200, 230);
+            txtPassword.Location = new Point(10, 115);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(240, 27);
+            txtPassword.TabIndex = 4;
+            // 
             // btnLogin
-            this.btnLogin.Location = new System.Drawing.Point(10, 150);
-            this.btnLogin.Size = new System.Drawing.Size(80, 28);
-            this.btnLogin.Text = "Войти";
-            this.btnLogin.BackColor = System.Drawing.Color.FromArgb(210, 220, 235);
-            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-
+            // 
+            btnLogin.BackColor = Color.FromArgb(210, 220, 235);
+            btnLogin.FlatStyle = FlatStyle.Flat;
+            btnLogin.Location = new Point(10, 150);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(80, 28);
+            btnLogin.TabIndex = 5;
+            btnLogin.Text = "Войти";
+            btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
+            // 
             // btnRegister
-            this.btnRegister.Location = new System.Drawing.Point(10, 188);
-            this.btnRegister.Size = new System.Drawing.Size(100, 28);
-            this.btnRegister.Text = "Регистрация";
-            this.btnRegister.BackColor = System.Drawing.Color.FromArgb(210, 220, 235);
-            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-
+            // 
+            btnRegister.BackColor = Color.FromArgb(210, 220, 235);
+            btnRegister.FlatStyle = FlatStyle.Flat;
+            btnRegister.Location = new Point(10, 188);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(108, 28);
+            btnRegister.TabIndex = 6;
+            btnRegister.Text = "Регистрация";
+            btnRegister.UseVisualStyleBackColor = false;
+            btnRegister.Click += btnRegister_Click;
+            // 
             // LoginForm
-            this.ClientSize = new System.Drawing.Size(800, 500);
-            this.Controls.Add(this.panelTop);
-            this.Controls.Add(this.panelLogin);
-            this.Text = "Авторизация";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.BackColor = System.Drawing.Color.White;
-
-            this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
-            this.panelLogin.ResumeLayout(false);
-            this.panelLogin.PerformLayout();
-            this.ResumeLayout(false);
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(800, 500);
+            Controls.Add(panelTop);
+            Controls.Add(panelLogin);
+            Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Авторизация";
+            panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
+            panelLogin.ResumeLayout(false);
+            panelLogin.PerformLayout();
+            ResumeLayout(false);
         }
 
         private System.Windows.Forms.Panel panelTop;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Sklad_project_2
+
+namespace Sklad_project_app
 {
     public partial class ShipmentHistoryForm : Form
     {
@@ -32,34 +33,49 @@ namespace Sklad_project_2
                 dgvHistory.Columns.Add("colShipIdHidden", "ID");
                 dgvHistory.Columns["colShipIdHidden"].Visible = false;
 
-                foreach (var s in shipments)
+                foreach (var shipment in shipments)
                 {
                     var clientName = "—";
                     var userName = "—";
                     var date = "—";
 
-                    if (s.Client != null) clientName = s.Client.Name;
-                    if (s.User != null) userName = s.User.Surname + " " + s.User.Name;
-                    if (s.ShipmentDate != null) date = s.ShipmentDate.Value.ToString("dd.MM.yyyy");
+                    if (shipment.Client != null)
+                    {
+                        clientName = shipment.Client.Name;
+                    }
+                    if (shipment.User != null)
+                    {
+                        userName = shipment.User.Surname + " " + shipment.User.Name;
+                    }
+                    if (shipment.ShipmentDate != null)
+                    {
+                        date = shipment.ShipmentDate.Value.ToString("dd.MM.yyyy");
+                    }
 
-                    dgvHistory.Rows.Add(s.Id, clientName, userName, date, s.Id);
+                    dgvHistory.Rows.Add(shipment.Id, clientName, userName, date, shipment.Id);
                 }
             }
         }
 
         private void dgvHistory_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvHistory.SelectedRows.Count == 0) return;
+            if (dgvHistory.SelectedRows.Count == 0)
+            {
+                return;
+            }
 
-            int shipId;
-            if (!int.TryParse(
-                dgvHistory.SelectedRows[0].Cells["colShipIdHidden"].Value?.ToString(),
-                out shipId)) return;
+            var idValue = dgvHistory.SelectedRows[0].Cells["colShipIdHidden"].Value?.ToString();
 
-            LoadShipmentItems(shipId);
+            Guid shipmentId;
+            if (!Guid.TryParse(idValue, out shipmentId))
+            {
+                return;
+            }
+
+            LoadShipmentItems(shipmentId);
         }
 
-        private void LoadShipmentItems(int shipmentId)
+        private void LoadShipmentItems(Guid shipmentId)
         {
             using (var db = new SkladContext())
             {
@@ -77,7 +93,10 @@ namespace Sklad_project_2
                     if (item.ShipmentId == shipmentId)
                     {
                         var productName = "—";
-                        if (item.Product != null) productName = item.Product.Name;
+                        if (item.Product != null)
+                        {
+                            productName = item.Product.Name;
+                        }
                         dgvHistoryItems.Rows.Add(productName, item.Quantity);
                     }
                 }

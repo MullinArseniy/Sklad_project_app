@@ -1,6 +1,7 @@
-﻿using Sklad_project_2.Models;
+﻿using Sklad_project_app.Models;
 
-namespace Sklad_project_2
+
+namespace Sklad_project_app
 {
     public partial class CategoriesForm : Form
     {
@@ -18,10 +19,12 @@ namespace Sklad_project_2
         {
             using (var db = new SkladContext())
             {
-                var cats = db.Categories.ToList();
+                var categories = db.Categories.ToList();
                 lstCategories.Items.Clear();
-                foreach (var c in cats)
-                    lstCategories.Items.Add(c.Name);
+                foreach (var category in categories)
+                {
+                    lstCategories.Items.Add(category.Name);
+                }
             }
         }
 
@@ -30,24 +33,38 @@ namespace Sklad_project_2
             var name = txtCategoryName.Text.Trim();
             if (string.IsNullOrEmpty(name))
             {
-                MessageBox.Show("Введите название категории!");
+                MessageBox.Show(AppResources.MsgFillFields);
                 return;
             }
 
             using (var db = new SkladContext())
             {
-                var allCats = db.Categories.ToList();
-                foreach (var c in allCats)
+                var existing = db.Categories
+                    .Where(category => category.Name == name)
+                    .FirstOrDefault();
+
+                if (existing != null)
                 {
-                    if (c.Name == name)
-                    {
-                        MessageBox.Show("Такая категория уже существует!");
-                        return;
-                    }
+                    MessageBox.Show(AppResources.MsgCategoryExists);
+                    return;
                 }
 
-                db.Categories.Add(new Category { Name = name });
-                db.SaveChanges();
+                var newCategory = new Category
+                {
+                    Id = Guid.NewGuid(),
+                    Name = name
+                };
+
+                try
+                {
+                    db.Categories.Add(newCategory);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                    return;
+                }
             }
 
             txtCategoryName.Text = "";
@@ -58,7 +75,7 @@ namespace Sklad_project_2
         {
             if (lstCategories.SelectedIndex < 0)
             {
-                MessageBox.Show("Выберите категорию!");
+                MessageBox.Show(AppResources.MsgSelectProduct);
                 return;
             }
 
@@ -67,27 +84,32 @@ namespace Sklad_project_2
 
             if (string.IsNullOrEmpty(newName))
             {
-                MessageBox.Show("Введите новое название!");
+                MessageBox.Show(AppResources.MsgFillFields);
                 return;
             }
 
             using (var db = new SkladContext())
             {
-                var allCats = db.Categories.ToList();
-                Category foundCat = null;
+                var foundCategory = db.Categories
+                    .Where(category => category.Name == oldName)
+                    .FirstOrDefault();
 
-                foreach (var c in allCats)
+                if (foundCategory == null)
                 {
-                    if (c.Name == oldName)
-                    {
-                        foundCat = c;
-                        break;
-                    }
+                    return;
                 }
 
-                if (foundCat == null) return;
-                foundCat.Name = newName;
-                db.SaveChanges();
+                foundCategory.Name = newName;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                    return;
+                }
             }
 
             txtCategoryName.Text = "";
@@ -98,43 +120,54 @@ namespace Sklad_project_2
         {
             if (lstCategories.SelectedIndex < 0)
             {
-                MessageBox.Show("Выберите категорию!");
+                MessageBox.Show(AppResources.MsgSelectProduct);
                 return;
             }
 
-            var catName = lstCategories.SelectedItem.ToString();
-            var result = MessageBox.Show("Удалить категорию '" + catName + "'?",
-                "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes) return;
+            var categoryName = lstCategories.SelectedItem.ToString();
+
+            var result = MessageBox.Show(
+                AppResources.MsgDeleteConfirm,
+                AppResources.MsgDeleteTitle,
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
 
             using (var db = new SkladContext())
             {
-                var allCats = db.Categories.ToList();
-                Category foundCat = null;
+                var foundCategory = db.Categories
+                    .Where(category => category.Name == categoryName)
+                    .FirstOrDefault();
 
-                foreach (var c in allCats)
+                if (foundCategory == null)
                 {
-                    if (c.Name == catName)
-                    {
-                        foundCat = c;
-                        break;
-                    }
+                    return;
                 }
 
-                if (foundCat == null) return;
+                var hasProducts = db.Products
+                    .Where(product => product.CategoryId == foundCategory.Id)
+                    .Any();
 
-                var allProducts = db.Products.ToList();
-                foreach (var p in allProducts)
+                if (hasProducts)
                 {
-                    if (p.CategoryId == foundCat.Id)
-                    {
-                        MessageBox.Show("Нельзя удалить категорию — в ней есть товары!");
-                        return;
-                    }
+                    MessageBox.Show(AppResources.MsgCategoryHasProducts);
+                    return;
                 }
 
-                db.Categories.Remove(foundCat);
-                db.SaveChanges();
+                try
+                {
+                    db.Categories.Remove(foundCategory);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                    return;
+                }
             }
 
             LoadCategories();
@@ -143,7 +176,9 @@ namespace Sklad_project_2
         private void lstCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstCategories.SelectedIndex >= 0)
+            {
                 txtCategoryName.Text = lstCategories.SelectedItem.ToString();
+            }
         }
     }
 }

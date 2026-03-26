@@ -1,10 +1,10 @@
-﻿namespace Sklad_project_2.Models
+﻿namespace Sklad_project_app.Models
 {
     public class ShipmentItem
     {
-        public int Id { get; set; }
-        public int ShipmentId { get; set; }
-        public int ProductId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ShipmentId { get; set; }
+        public Guid ProductId { get; set; }
         public int Quantity { get; set; }
         public virtual Shipment Shipment { get; set; }
         public virtual Product Product { get; set; }

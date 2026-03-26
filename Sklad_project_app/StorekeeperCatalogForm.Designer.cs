@@ -1,4 +1,4 @@
-﻿namespace SkladApp
+﻿namespace Sklad_project_app
 {
     partial class StorekeeperCatalogForm
     {
@@ -13,389 +13,533 @@
 
         private void InitializeComponent()
         {
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.lblCompany = new System.Windows.Forms.Label();
-            this.lblUserInfo = new System.Windows.Forms.Label();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.panelLeft = new System.Windows.Forms.Panel();
-            this.btnCatalog = new System.Windows.Forms.Button();
-            this.btnShipment = new System.Windows.Forms.Button();
-            this.btnMyShipments = new System.Windows.Forms.Button();
-            this.panelActions = new System.Windows.Forms.Panel();
-            this.btnView = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.panelFilters = new System.Windows.Forms.Panel();
-            this.lblSearch = new System.Windows.Forms.Label();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.lblCategory = new System.Windows.Forms.Label();
-            this.cmbCategory = new System.Windows.Forms.ComboBox();
-            this.lblAvailability = new System.Windows.Forms.Label();
-            this.cmbAvailability = new System.Windows.Forms.ComboBox();
-            this.lblPrice = new System.Windows.Forms.Label();
-            this.txtPriceFrom = new System.Windows.Forms.TextBox();
-            this.txtPriceTo = new System.Windows.Forms.TextBox();
-            this.lblFound = new System.Windows.Forms.Label();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.dgvProducts = new System.Windows.Forms.DataGridView();
-            this.panelView = new System.Windows.Forms.Panel();
-            this.lblPanelTitle = new System.Windows.Forms.Label();
-            this.lblArticleView = new System.Windows.Forms.Label();
-            this.txtArticleView = new System.Windows.Forms.TextBox();
-            this.lblNameView = new System.Windows.Forms.Label();
-            this.txtNameView = new System.Windows.Forms.TextBox();
-            this.lblCategoryView = new System.Windows.Forms.Label();
-            this.txtCategoryView = new System.Windows.Forms.TextBox();
-            this.lblUnitView = new System.Windows.Forms.Label();
-            this.txtUnitView = new System.Windows.Forms.TextBox();
-            this.lblPriceView = new System.Windows.Forms.Label();
-            this.txtPriceView = new System.Windows.Forms.TextBox();
-            this.lblRestView = new System.Windows.Forms.Label();
-            this.txtRestView = new System.Windows.Forms.TextBox();
-            this.btnCloseView = new System.Windows.Forms.Button();
-
-            this.panelTop.SuspendLayout();
-            this.panelLeft.SuspendLayout();
-            this.panelActions.SuspendLayout();
-            this.panelFilters.SuspendLayout();
-            this.panelView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
-            this.SuspendLayout();
-
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            panelTop = new Panel();
+            lblCompany = new Label();
+            lblUserInfo = new Label();
+            btnLogout = new Button();
+            panelLeft = new Panel();
+            btnCatalog = new Button();
+            btnShipment = new Button();
+            btnMyShipments = new Button();
+            panelActions = new Panel();
+            btnView = new Button();
+            btnRefresh = new Button();
+            panelFilters = new Panel();
+            lblSearch = new Label();
+            txtSearch = new TextBox();
+            lblCategory = new Label();
+            cmbCategory = new ComboBox();
+            lblAvailability = new Label();
+            cmbAvailability = new ComboBox();
+            lblPrice = new Label();
+            txtPriceFrom = new TextBox();
+            txtPriceTo = new TextBox();
+            lblFound = new Label();
+            btnReset = new Button();
+            dgvProducts = new DataGridView();
+            panelView = new Panel();
+            lblPanelTitle = new Label();
+            lblArticleView = new Label();
+            txtArticleView = new TextBox();
+            lblNameView = new Label();
+            txtNameView = new TextBox();
+            lblCategoryView = new Label();
+            txtCategoryView = new TextBox();
+            lblUnitView = new Label();
+            txtUnitView = new TextBox();
+            lblPriceView = new Label();
+            txtPriceView = new TextBox();
+            lblRestView = new Label();
+            txtRestView = new TextBox();
+            btnCloseView = new Button();
+            panelTop.SuspendLayout();
+            panelLeft.SuspendLayout();
+            panelActions.SuspendLayout();
+            panelFilters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
+            panelView.SuspendLayout();
+            SuspendLayout();
+            // 
             // panelTop
-            this.panelTop.BackColor = System.Drawing.Color.FromArgb(30, 100, 200);
-            this.panelTop.Controls.Add(this.lblCompany);
-            this.panelTop.Controls.Add(this.lblUserInfo);
-            this.panelTop.Controls.Add(this.btnLogout);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Size = new System.Drawing.Size(1100, 35);
-
+            // 
+            panelTop.BackColor = Color.FromArgb(30, 100, 200);
+            panelTop.Controls.Add(lblCompany);
+            panelTop.Controls.Add(lblUserInfo);
+            panelTop.Controls.Add(btnLogout);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 0);
+            panelTop.Name = "panelTop";
+            panelTop.Size = new Size(1100, 35);
+            panelTop.TabIndex = 0;
+            // 
             // lblCompany
-            this.lblCompany.AutoSize = true;
-            this.lblCompany.ForeColor = System.Drawing.Color.White;
-            this.lblCompany.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
-            this.lblCompany.Location = new System.Drawing.Point(10, 8);
-            this.lblCompany.Text = "ООО \"Птички-тупички\" - система управления складом";
-
+            // 
+            lblCompany.AutoSize = true;
+            lblCompany.Font = new Font("Arial", 10F, FontStyle.Bold);
+            lblCompany.ForeColor = Color.White;
+            lblCompany.Location = new Point(10, 8);
+            lblCompany.Name = "lblCompany";
+            lblCompany.Size = new Size(463, 19);
+            lblCompany.TabIndex = 0;
+            lblCompany.Text = "ООО \"Птички-тупички\" - система управления складом";
+            // 
             // lblUserInfo
-            this.lblUserInfo.AutoSize = true;
-            this.lblUserInfo.ForeColor = System.Drawing.Color.White;
-            this.lblUserInfo.Font = new System.Drawing.Font("Arial", 9F);
-            this.lblUserInfo.Location = new System.Drawing.Point(800, 9);
-            this.lblUserInfo.Text = "Кладовщик:";
-
+            // 
+            lblUserInfo.AutoSize = true;
+            lblUserInfo.Font = new Font("Arial", 9F);
+            lblUserInfo.ForeColor = Color.White;
+            lblUserInfo.Location = new Point(664, 8);
+            lblUserInfo.Name = "lblUserInfo";
+            lblUserInfo.Size = new Size(88, 17);
+            lblUserInfo.TabIndex = 1;
+            lblUserInfo.Text = "Кладовщик:";
+            
+            // 
             // btnLogout
-            this.btnLogout.Location = new System.Drawing.Point(1020, 5);
-            this.btnLogout.Size = new System.Drawing.Size(70, 25);
-            this.btnLogout.Text = "Выход";
-            this.btnLogout.BackColor = System.Drawing.Color.FromArgb(210, 220, 235);
-            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
-
+            // 
+            btnLogout.BackColor = Color.FromArgb(210, 220, 235);
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.Location = new Point(1018, 2);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(70, 30);
+            btnLogout.TabIndex = 2;
+            btnLogout.Text = "Выход";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
             // panelLeft
-            this.panelLeft.BackColor = System.Drawing.Color.FromArgb(240, 240, 240);
-            this.panelLeft.Controls.Add(this.btnCatalog);
-            this.panelLeft.Controls.Add(this.btnShipment);
-            this.panelLeft.Controls.Add(this.btnMyShipments);
-            this.panelLeft.Location = new System.Drawing.Point(0, 35);
-            this.panelLeft.Size = new System.Drawing.Size(140, 565);
-            this.panelLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            panelLeft.BackColor = Color.FromArgb(240, 240, 240);
+            panelLeft.BorderStyle = BorderStyle.FixedSingle;
+            panelLeft.Controls.Add(btnCatalog);
+            panelLeft.Controls.Add(btnShipment);
+            panelLeft.Controls.Add(btnMyShipments);
+            panelLeft.Location = new Point(0, 35);
+            panelLeft.Name = "panelLeft";
+            panelLeft.Size = new Size(140, 565);
+            panelLeft.TabIndex = 1;
+            // 
             // btnCatalog
-            this.btnCatalog.Location = new System.Drawing.Point(5, 10);
-            this.btnCatalog.Size = new System.Drawing.Size(128, 30);
-            this.btnCatalog.Text = "Каталог товаров";
-            this.btnCatalog.BackColor = System.Drawing.Color.FromArgb(30, 100, 200);
-            this.btnCatalog.ForeColor = System.Drawing.Color.White;
-            this.btnCatalog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCatalog.Click += new System.EventHandler(this.btnCatalog_Click);
-
+            // 
+            btnCatalog.BackColor = Color.FromArgb(30, 100, 200);
+            btnCatalog.FlatStyle = FlatStyle.Flat;
+            btnCatalog.ForeColor = Color.White;
+            btnCatalog.Location = new Point(5, 10);
+            btnCatalog.Name = "btnCatalog";
+            btnCatalog.Size = new Size(128, 30);
+            btnCatalog.TabIndex = 0;
+            btnCatalog.Text = "Каталог товаров";
+            btnCatalog.UseVisualStyleBackColor = false;
+            btnCatalog.Click += btnCatalog_Click;
+            // 
             // btnShipment
-            this.btnShipment.Location = new System.Drawing.Point(5, 48);
-            this.btnShipment.Size = new System.Drawing.Size(128, 30);
-            this.btnShipment.Text = "Отгрузка";
-            this.btnShipment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShipment.Click += new System.EventHandler(this.btnShipment_Click);
-
+            // 
+            btnShipment.FlatStyle = FlatStyle.Flat;
+            btnShipment.Location = new Point(5, 48);
+            btnShipment.Name = "btnShipment";
+            btnShipment.Size = new Size(128, 30);
+            btnShipment.TabIndex = 1;
+            btnShipment.Text = "Отгрузка";
+            btnShipment.Click += btnShipment_Click;
+            // 
             // btnMyShipments
-            this.btnMyShipments.Location = new System.Drawing.Point(5, 86);
-            this.btnMyShipments.Size = new System.Drawing.Size(128, 30);
-            this.btnMyShipments.Text = "Мои отгрузки";
-            this.btnMyShipments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMyShipments.Click += new System.EventHandler(this.btnMyShipments_Click);
-
+            // 
+            btnMyShipments.FlatStyle = FlatStyle.Flat;
+            btnMyShipments.Location = new Point(5, 86);
+            btnMyShipments.Name = "btnMyShipments";
+            btnMyShipments.Size = new Size(128, 30);
+            btnMyShipments.TabIndex = 2;
+            btnMyShipments.Text = "Мои отгрузки";
+            btnMyShipments.Click += btnMyShipments_Click;
+            // 
             // panelActions
-            this.panelActions.BackColor = System.Drawing.Color.FromArgb(50, 50, 50);
-            this.panelActions.Controls.Add(this.btnView);
-            this.panelActions.Controls.Add(this.btnRefresh);
-            this.panelActions.Location = new System.Drawing.Point(140, 35);
-            this.panelActions.Size = new System.Drawing.Size(960, 45);
-
+            // 
+            panelActions.BackColor = Color.FromArgb(50, 50, 50);
+            panelActions.Controls.Add(btnView);
+            panelActions.Controls.Add(btnRefresh);
+            panelActions.Location = new Point(140, 35);
+            panelActions.Name = "panelActions";
+            panelActions.Size = new Size(960, 45);
+            panelActions.TabIndex = 2;
+            // 
             // btnView
-            this.btnView.Location = new System.Drawing.Point(10, 8);
-            this.btnView.Size = new System.Drawing.Size(100, 28);
-            this.btnView.Text = "Просмотреть";
-            this.btnView.BackColor = System.Drawing.Color.FromArgb(70, 70, 70);
-            this.btnView.ForeColor = System.Drawing.Color.White;
-            this.btnView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnView.Click += new System.EventHandler(this.btnView_Click);
-
+            // 
+            btnView.BackColor = Color.FromArgb(70, 70, 70);
+            btnView.FlatStyle = FlatStyle.Flat;
+            btnView.ForeColor = Color.White;
+            btnView.Location = new Point(10, 8);
+            btnView.Name = "btnView";
+            btnView.Size = new Size(121, 28);
+            btnView.TabIndex = 0;
+            btnView.Text = "Просмотреть";
+            btnView.UseVisualStyleBackColor = false;
+            btnView.Click += btnView_Click;
+            // 
             // btnRefresh
-            this.btnRefresh.Location = new System.Drawing.Point(118, 8);
-            this.btnRefresh.Size = new System.Drawing.Size(100, 28);
-            this.btnRefresh.Text = "Обновить";
-            this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(70, 70, 70);
-            this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-
+            // 
+            btnRefresh.BackColor = Color.FromArgb(70, 70, 70);
+            btnRefresh.FlatStyle = FlatStyle.Flat;
+            btnRefresh.ForeColor = Color.White;
+            btnRefresh.Location = new Point(137, 8);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(100, 28);
+            btnRefresh.TabIndex = 1;
+            btnRefresh.Text = "Обновить";
+            btnRefresh.UseVisualStyleBackColor = false;
+            btnRefresh.Click += btnRefresh_Click;
+            // 
             // panelFilters
-            this.panelFilters.BackColor = System.Drawing.Color.FromArgb(230, 235, 245);
-            this.panelFilters.Controls.Add(this.lblSearch);
-            this.panelFilters.Controls.Add(this.txtSearch);
-            this.panelFilters.Controls.Add(this.lblCategory);
-            this.panelFilters.Controls.Add(this.cmbCategory);
-            this.panelFilters.Controls.Add(this.lblAvailability);
-            this.panelFilters.Controls.Add(this.cmbAvailability);
-            this.panelFilters.Controls.Add(this.lblPrice);
-            this.panelFilters.Controls.Add(this.txtPriceFrom);
-            this.panelFilters.Controls.Add(this.txtPriceTo);
-            this.panelFilters.Controls.Add(this.lblFound);
-            this.panelFilters.Controls.Add(this.btnReset);
-            this.panelFilters.Location = new System.Drawing.Point(140, 80);
-            this.panelFilters.Size = new System.Drawing.Size(960, 75);
-
+            // 
+            panelFilters.BackColor = Color.FromArgb(230, 235, 245);
+            panelFilters.Controls.Add(lblSearch);
+            panelFilters.Controls.Add(txtSearch);
+            panelFilters.Controls.Add(lblCategory);
+            panelFilters.Controls.Add(cmbCategory);
+            panelFilters.Controls.Add(lblAvailability);
+            panelFilters.Controls.Add(cmbAvailability);
+            panelFilters.Controls.Add(lblPrice);
+            panelFilters.Controls.Add(txtPriceFrom);
+            panelFilters.Controls.Add(txtPriceTo);
+            panelFilters.Controls.Add(lblFound);
+            panelFilters.Controls.Add(btnReset);
+            panelFilters.Location = new Point(140, 80);
+            panelFilters.Name = "panelFilters";
+            panelFilters.Size = new Size(960, 102);
+            panelFilters.TabIndex = 3;
+            // 
             // lblSearch
-            this.lblSearch.AutoSize = true;
-            this.lblSearch.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblSearch.Location = new System.Drawing.Point(10, 8);
-            this.lblSearch.Text = "Поиск (название / артикул):";
-
+            // 
+            lblSearch.AutoSize = true;
+            lblSearch.Font = new Font("Arial", 8F);
+            lblSearch.Location = new Point(10, 8);
+            lblSearch.Name = "lblSearch";
+            lblSearch.Size = new Size(188, 16);
+            lblSearch.TabIndex = 0;
+            lblSearch.Text = "Поиск (название / артикул):";
+            // 
             // txtSearch
-            this.txtSearch.Location = new System.Drawing.Point(10, 25);
-            this.txtSearch.Size = new System.Drawing.Size(160, 22);
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-
+            // 
+            txtSearch.Location = new Point(10, 25);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(160, 27);
+            txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
             // lblCategory
-            this.lblCategory.AutoSize = true;
-            this.lblCategory.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblCategory.Location = new System.Drawing.Point(185, 8);
-            this.lblCategory.Text = "Категория:";
-
+            // 
+            lblCategory.AutoSize = true;
+            lblCategory.Font = new Font("Arial", 8F);
+            lblCategory.Location = new Point(204, 8);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(79, 16);
+            lblCategory.TabIndex = 2;
+            lblCategory.Text = "Категория:";
+            // 
             // cmbCategory
-            this.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbCategory.Location = new System.Drawing.Point(185, 25);
-            this.cmbCategory.Size = new System.Drawing.Size(160, 22);
-            this.cmbCategory.SelectedIndexChanged += new System.EventHandler(this.cmbCategory_SelectedIndexChanged);
-
+            // 
+            cmbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCategory.Location = new Point(204, 25);
+            cmbCategory.Name = "cmbCategory";
+            cmbCategory.Size = new Size(160, 28);
+            cmbCategory.TabIndex = 3;
+            cmbCategory.SelectedIndexChanged += cmbCategory_SelectedIndexChanged;
+            // 
             // lblAvailability
-            this.lblAvailability.AutoSize = true;
-            this.lblAvailability.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblAvailability.Location = new System.Drawing.Point(360, 8);
-            this.lblAvailability.Text = "Наличие:";
-
+            // 
+            lblAvailability.AutoSize = true;
+            lblAvailability.Font = new Font("Arial", 8F);
+            lblAvailability.Location = new Point(379, 8);
+            lblAvailability.Name = "lblAvailability";
+            lblAvailability.Size = new Size(67, 16);
+            lblAvailability.TabIndex = 4;
+            lblAvailability.Text = "Наличие:";
+            // 
             // cmbAvailability
-            this.cmbAvailability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAvailability.Location = new System.Drawing.Point(360, 25);
-            this.cmbAvailability.Size = new System.Drawing.Size(130, 22);
-            this.cmbAvailability.SelectedIndexChanged += new System.EventHandler(this.cmbAvailability_SelectedIndexChanged);
-
+            // 
+            cmbAvailability.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbAvailability.Location = new Point(379, 25);
+            cmbAvailability.Name = "cmbAvailability";
+            cmbAvailability.Size = new Size(130, 28);
+            cmbAvailability.TabIndex = 5;
+            cmbAvailability.SelectedIndexChanged += cmbAvailability_SelectedIndexChanged;
+            // 
             // lblPrice
-            this.lblPrice.AutoSize = true;
-            this.lblPrice.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblPrice.Location = new System.Drawing.Point(505, 8);
-            this.lblPrice.Text = "Цена:";
-
+            // 
+            lblPrice.AutoSize = true;
+            lblPrice.Font = new Font("Arial", 8F);
+            lblPrice.Location = new Point(524, 8);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(45, 16);
+            lblPrice.TabIndex = 6;
+            lblPrice.Text = "Цена:";
+            // 
             // txtPriceFrom
-            this.txtPriceFrom.Location = new System.Drawing.Point(505, 25);
-            this.txtPriceFrom.Size = new System.Drawing.Size(70, 22);
-            this.txtPriceFrom.Text = "0";
-
+            // 
+            txtPriceFrom.Location = new Point(524, 25);
+            txtPriceFrom.Name = "txtPriceFrom";
+            txtPriceFrom.Size = new Size(70, 27);
+            txtPriceFrom.TabIndex = 7;
+            txtPriceFrom.Text = "0";
+            // 
             // txtPriceTo
-            this.txtPriceTo.Location = new System.Drawing.Point(585, 25);
-            this.txtPriceTo.Size = new System.Drawing.Size(70, 22);
-            this.txtPriceTo.Text = "1000000";
-
+            // 
+            txtPriceTo.Location = new Point(604, 25);
+            txtPriceTo.Name = "txtPriceTo";
+            txtPriceTo.Size = new Size(70, 27);
+            txtPriceTo.TabIndex = 8;
+            txtPriceTo.Text = "1000000";
+            // 
             // lblFound
-            this.lblFound.AutoSize = true;
-            this.lblFound.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.lblFound.Location = new System.Drawing.Point(10, 52);
-            this.lblFound.Text = "Найдено: 0 из 0";
-
+            // 
+            lblFound.AutoSize = true;
+            lblFound.Font = new Font("Arial", 9F, FontStyle.Bold);
+            lblFound.Location = new Point(10, 69);
+            lblFound.Name = "lblFound";
+            lblFound.Size = new Size(121, 18);
+            lblFound.TabIndex = 9;
+            lblFound.Text = "Найдено: 0 из 0";
+            // 
             // btnReset
-            this.btnReset.Location = new System.Drawing.Point(120, 50);
-            this.btnReset.Size = new System.Drawing.Size(80, 22);
-            this.btnReset.Text = "Сбросить";
-            this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-
+            // 
+            btnReset.FlatStyle = FlatStyle.Flat;
+            btnReset.Location = new Point(138, 61);
+            btnReset.Name = "btnReset";
+            btnReset.Size = new Size(88, 33);
+            btnReset.TabIndex = 10;
+            btnReset.Text = "Сбросить";
+            btnReset.Click += btnReset_Click;
+            // 
             // dgvProducts
-            this.dgvProducts.Location = new System.Drawing.Point(140, 155);
-            this.dgvProducts.Size = new System.Drawing.Size(960, 445);
-            this.dgvProducts.BackgroundColor = System.Drawing.Color.White;
-            this.dgvProducts.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvProducts.RowHeadersVisible = false;
-            this.dgvProducts.AllowUserToAddRows = false;
-            this.dgvProducts.AllowUserToDeleteRows = false;
-            this.dgvProducts.ReadOnly = true;
-            this.dgvProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvProducts.MultiSelect = false;
-            this.dgvProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvProducts.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(50, 50, 50);
-            this.dgvProducts.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvProducts.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            this.dgvProducts.EnableHeadersVisualStyles = false;
-
+            // 
+            dgvProducts.AllowUserToAddRows = false;
+            dgvProducts.AllowUserToDeleteRows = false;
+            dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProducts.BackgroundColor = Color.White;
+            dgvProducts.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(50, 50, 50);
+            dataGridViewCellStyle5.Font = new Font("Arial", 9F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dgvProducts.ColumnHeadersHeight = 29;
+            dgvProducts.EnableHeadersVisualStyles = false;
+            dgvProducts.Location = new Point(140, 155);
+            dgvProducts.MultiSelect = false;
+            dgvProducts.Name = "dgvProducts";
+            dgvProducts.ReadOnly = true;
+            dgvProducts.RowHeadersVisible = false;
+            dgvProducts.RowHeadersWidth = 51;
+            dgvProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProducts.Size = new Size(960, 445);
+            dgvProducts.TabIndex = 5;
+            // 
             // panelView
-            this.panelView.BackColor = System.Drawing.Color.FromArgb(50, 50, 50);
-            this.panelView.Controls.Add(this.lblPanelTitle);
-            this.panelView.Controls.Add(this.lblArticleView);
-            this.panelView.Controls.Add(this.txtArticleView);
-            this.panelView.Controls.Add(this.lblNameView);
-            this.panelView.Controls.Add(this.txtNameView);
-            this.panelView.Controls.Add(this.lblCategoryView);
-            this.panelView.Controls.Add(this.txtCategoryView);
-            this.panelView.Controls.Add(this.lblUnitView);
-            this.panelView.Controls.Add(this.txtUnitView);
-            this.panelView.Controls.Add(this.lblPriceView);
-            this.panelView.Controls.Add(this.txtPriceView);
-            this.panelView.Controls.Add(this.lblRestView);
-            this.panelView.Controls.Add(this.txtRestView);
-            this.panelView.Controls.Add(this.btnCloseView);
-            this.panelView.Location = new System.Drawing.Point(0, 155);
-            this.panelView.Size = new System.Drawing.Size(140, 445);
-            this.panelView.Visible = false;
-
+            // 
+            panelView.BackColor = Color.FromArgb(50, 50, 50);
+            panelView.Controls.Add(lblPanelTitle);
+            panelView.Controls.Add(lblArticleView);
+            panelView.Controls.Add(txtArticleView);
+            panelView.Controls.Add(lblNameView);
+            panelView.Controls.Add(txtNameView);
+            panelView.Controls.Add(lblCategoryView);
+            panelView.Controls.Add(txtCategoryView);
+            panelView.Controls.Add(lblUnitView);
+            panelView.Controls.Add(txtUnitView);
+            panelView.Controls.Add(lblPriceView);
+            panelView.Controls.Add(txtPriceView);
+            panelView.Controls.Add(lblRestView);
+            panelView.Controls.Add(txtRestView);
+            panelView.Controls.Add(btnCloseView);
+            panelView.Location = new Point(0, 155);
+            panelView.Name = "panelView";
+            panelView.Size = new Size(140, 445);
+            panelView.TabIndex = 4;
+            panelView.Visible = false;
+            // 
             // lblPanelTitle
-            this.lblPanelTitle.AutoSize = false;
-            this.lblPanelTitle.ForeColor = System.Drawing.Color.White;
-            this.lblPanelTitle.Font = new System.Drawing.Font("Arial", 8F, System.Drawing.FontStyle.Bold);
-            this.lblPanelTitle.Location = new System.Drawing.Point(5, 8);
-            this.lblPanelTitle.Size = new System.Drawing.Size(130, 30);
-            this.lblPanelTitle.Text = "ПРОСМОТР ТОВАРА";
-            this.lblPanelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            lblPanelTitle.Font = new Font("Arial", 8F, FontStyle.Bold);
+            lblPanelTitle.ForeColor = Color.White;
+            lblPanelTitle.Location = new Point(5, 8);
+            lblPanelTitle.Name = "lblPanelTitle";
+            lblPanelTitle.Size = new Size(130, 30);
+            lblPanelTitle.TabIndex = 0;
+            lblPanelTitle.Text = "ПРОСМОТР ТОВАРА";
+            lblPanelTitle.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // lblArticleView
-            this.lblArticleView.AutoSize = true;
-            this.lblArticleView.ForeColor = System.Drawing.Color.White;
-            this.lblArticleView.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblArticleView.Location = new System.Drawing.Point(5, 42);
-            this.lblArticleView.Text = "Артикул:";
-
+            // 
+            lblArticleView.AutoSize = true;
+            lblArticleView.Font = new Font("Arial", 8F);
+            lblArticleView.ForeColor = Color.White;
+            lblArticleView.Location = new Point(5, 42);
+            lblArticleView.Name = "lblArticleView";
+            lblArticleView.Size = new Size(64, 16);
+            lblArticleView.TabIndex = 1;
+            lblArticleView.Text = "Артикул:";
+            // 
             // txtArticleView
-            this.txtArticleView.Location = new System.Drawing.Point(5, 58);
-            this.txtArticleView.Size = new System.Drawing.Size(130, 22);
-            this.txtArticleView.ReadOnly = true;
-            this.txtArticleView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.txtArticleView.ForeColor = System.Drawing.Color.White;
-            this.txtArticleView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            txtArticleView.BackColor = Color.FromArgb(80, 80, 80);
+            txtArticleView.BorderStyle = BorderStyle.FixedSingle;
+            txtArticleView.ForeColor = Color.White;
+            txtArticleView.Location = new Point(5, 58);
+            txtArticleView.Name = "txtArticleView";
+            txtArticleView.ReadOnly = true;
+            txtArticleView.Size = new Size(130, 27);
+            txtArticleView.TabIndex = 2;
+            // 
             // lblNameView
-            this.lblNameView.AutoSize = true;
-            this.lblNameView.ForeColor = System.Drawing.Color.White;
-            this.lblNameView.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblNameView.Location = new System.Drawing.Point(5, 86);
-            this.lblNameView.Text = "Наименование:";
-
+            // 
+            lblNameView.AutoSize = true;
+            lblNameView.Font = new Font("Arial", 8F);
+            lblNameView.ForeColor = Color.White;
+            lblNameView.Location = new Point(5, 86);
+            lblNameView.Name = "lblNameView";
+            lblNameView.Size = new Size(109, 16);
+            lblNameView.TabIndex = 3;
+            lblNameView.Text = "Наименование:";
+            // 
             // txtNameView
-            this.txtNameView.Location = new System.Drawing.Point(5, 102);
-            this.txtNameView.Size = new System.Drawing.Size(130, 22);
-            this.txtNameView.ReadOnly = true;
-            this.txtNameView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.txtNameView.ForeColor = System.Drawing.Color.White;
-            this.txtNameView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            txtNameView.BackColor = Color.FromArgb(80, 80, 80);
+            txtNameView.BorderStyle = BorderStyle.FixedSingle;
+            txtNameView.ForeColor = Color.White;
+            txtNameView.Location = new Point(5, 102);
+            txtNameView.Name = "txtNameView";
+            txtNameView.ReadOnly = true;
+            txtNameView.Size = new Size(130, 27);
+            txtNameView.TabIndex = 4;
+            // 
             // lblCategoryView
-            this.lblCategoryView.AutoSize = true;
-            this.lblCategoryView.ForeColor = System.Drawing.Color.White;
-            this.lblCategoryView.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblCategoryView.Location = new System.Drawing.Point(5, 130);
-            this.lblCategoryView.Text = "Категория:";
-
+            // 
+            lblCategoryView.AutoSize = true;
+            lblCategoryView.Font = new Font("Arial", 8F);
+            lblCategoryView.ForeColor = Color.White;
+            lblCategoryView.Location = new Point(5, 130);
+            lblCategoryView.Name = "lblCategoryView";
+            lblCategoryView.Size = new Size(79, 16);
+            lblCategoryView.TabIndex = 5;
+            lblCategoryView.Text = "Категория:";
+            // 
             // txtCategoryView
-            this.txtCategoryView.Location = new System.Drawing.Point(5, 146);
-            this.txtCategoryView.Size = new System.Drawing.Size(130, 22);
-            this.txtCategoryView.ReadOnly = true;
-            this.txtCategoryView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.txtCategoryView.ForeColor = System.Drawing.Color.White;
-            this.txtCategoryView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            txtCategoryView.BackColor = Color.FromArgb(80, 80, 80);
+            txtCategoryView.BorderStyle = BorderStyle.FixedSingle;
+            txtCategoryView.ForeColor = Color.White;
+            txtCategoryView.Location = new Point(5, 146);
+            txtCategoryView.Name = "txtCategoryView";
+            txtCategoryView.ReadOnly = true;
+            txtCategoryView.Size = new Size(130, 27);
+            txtCategoryView.TabIndex = 6;
+            // 
             // lblUnitView
-            this.lblUnitView.AutoSize = true;
-            this.lblUnitView.ForeColor = System.Drawing.Color.White;
-            this.lblUnitView.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblUnitView.Location = new System.Drawing.Point(5, 174);
-            this.lblUnitView.Text = "Ед. измерения:";
-
+            // 
+            lblUnitView.AutoSize = true;
+            lblUnitView.Font = new Font("Arial", 8F);
+            lblUnitView.ForeColor = Color.White;
+            lblUnitView.Location = new Point(5, 174);
+            lblUnitView.Name = "lblUnitView";
+            lblUnitView.Size = new Size(108, 16);
+            lblUnitView.TabIndex = 7;
+            lblUnitView.Text = "Ед. измерения:";
+            // 
             // txtUnitView
-            this.txtUnitView.Location = new System.Drawing.Point(5, 190);
-            this.txtUnitView.Size = new System.Drawing.Size(130, 22);
-            this.txtUnitView.ReadOnly = true;
-            this.txtUnitView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.txtUnitView.ForeColor = System.Drawing.Color.White;
-            this.txtUnitView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            txtUnitView.BackColor = Color.FromArgb(80, 80, 80);
+            txtUnitView.BorderStyle = BorderStyle.FixedSingle;
+            txtUnitView.ForeColor = Color.White;
+            txtUnitView.Location = new Point(5, 190);
+            txtUnitView.Name = "txtUnitView";
+            txtUnitView.ReadOnly = true;
+            txtUnitView.Size = new Size(130, 27);
+            txtUnitView.TabIndex = 8;
+            // 
             // lblPriceView
-            this.lblPriceView.AutoSize = true;
-            this.lblPriceView.ForeColor = System.Drawing.Color.White;
-            this.lblPriceView.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblPriceView.Location = new System.Drawing.Point(5, 218);
-            this.lblPriceView.Text = "Цена закупки:";
-
+            // 
+            lblPriceView.AutoSize = true;
+            lblPriceView.Font = new Font("Arial", 8F);
+            lblPriceView.ForeColor = Color.White;
+            lblPriceView.Location = new Point(5, 218);
+            lblPriceView.Name = "lblPriceView";
+            lblPriceView.Size = new Size(98, 16);
+            lblPriceView.TabIndex = 9;
+            lblPriceView.Text = "Цена закупки:";
+            // 
             // txtPriceView
-            this.txtPriceView.Location = new System.Drawing.Point(5, 234);
-            this.txtPriceView.Size = new System.Drawing.Size(130, 22);
-            this.txtPriceView.ReadOnly = true;
-            this.txtPriceView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.txtPriceView.ForeColor = System.Drawing.Color.White;
-            this.txtPriceView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            txtPriceView.BackColor = Color.FromArgb(80, 80, 80);
+            txtPriceView.BorderStyle = BorderStyle.FixedSingle;
+            txtPriceView.ForeColor = Color.White;
+            txtPriceView.Location = new Point(5, 234);
+            txtPriceView.Name = "txtPriceView";
+            txtPriceView.ReadOnly = true;
+            txtPriceView.Size = new Size(130, 27);
+            txtPriceView.TabIndex = 10;
+            // 
             // lblRestView
-            this.lblRestView.AutoSize = true;
-            this.lblRestView.ForeColor = System.Drawing.Color.White;
-            this.lblRestView.Font = new System.Drawing.Font("Arial", 8F);
-            this.lblRestView.Location = new System.Drawing.Point(5, 262);
-            this.lblRestView.Text = "Остаток:";
-
+            // 
+            lblRestView.AutoSize = true;
+            lblRestView.Font = new Font("Arial", 8F);
+            lblRestView.ForeColor = Color.White;
+            lblRestView.Location = new Point(5, 262);
+            lblRestView.Name = "lblRestView";
+            lblRestView.Size = new Size(65, 16);
+            lblRestView.TabIndex = 11;
+            lblRestView.Text = "Остаток:";
+            // 
             // txtRestView
-            this.txtRestView.Location = new System.Drawing.Point(5, 278);
-            this.txtRestView.Size = new System.Drawing.Size(130, 22);
-            this.txtRestView.ReadOnly = true;
-            this.txtRestView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.txtRestView.ForeColor = System.Drawing.Color.White;
-            this.txtRestView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
+            // 
+            txtRestView.BackColor = Color.FromArgb(80, 80, 80);
+            txtRestView.BorderStyle = BorderStyle.FixedSingle;
+            txtRestView.ForeColor = Color.White;
+            txtRestView.Location = new Point(5, 278);
+            txtRestView.Name = "txtRestView";
+            txtRestView.ReadOnly = true;
+            txtRestView.Size = new Size(130, 27);
+            txtRestView.TabIndex = 12;
+            // 
             // btnCloseView
-            this.btnCloseView.Location = new System.Drawing.Point(5, 315);
-            this.btnCloseView.Size = new System.Drawing.Size(130, 28);
-            this.btnCloseView.Text = "ЗАКРЫТЬ";
-            this.btnCloseView.BackColor = System.Drawing.Color.FromArgb(80, 80, 80);
-            this.btnCloseView.ForeColor = System.Drawing.Color.White;
-            this.btnCloseView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseView.Click += new System.EventHandler(this.btnCloseView_Click);
-
+            // 
+            btnCloseView.BackColor = Color.FromArgb(80, 80, 80);
+            btnCloseView.FlatStyle = FlatStyle.Flat;
+            btnCloseView.ForeColor = Color.White;
+            btnCloseView.Location = new Point(5, 315);
+            btnCloseView.Name = "btnCloseView";
+            btnCloseView.Size = new Size(130, 28);
+            btnCloseView.TabIndex = 13;
+            btnCloseView.Text = "ЗАКРЫТЬ";
+            btnCloseView.UseVisualStyleBackColor = false;
+            btnCloseView.Click += btnCloseView_Click;
+            // 
             // StorekeeperCatalogForm
-            this.ClientSize = new System.Drawing.Size(1100, 600);
-            this.Controls.Add(this.panelTop);
-            this.Controls.Add(this.panelLeft);
-            this.Controls.Add(this.panelActions);
-            this.Controls.Add(this.panelFilters);
-            this.Controls.Add(this.panelView);
-            this.Controls.Add(this.dgvProducts);
-            this.Text = "Каталог товаров - Кладовщик";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.BackColor = System.Drawing.Color.White;
-            this.Load += new System.EventHandler(this.StorekeeperCatalogForm_Load);
-
-            this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
-            this.panelLeft.ResumeLayout(false);
-            this.panelActions.ResumeLayout(false);
-            this.panelFilters.ResumeLayout(false);
-            this.panelFilters.PerformLayout();
-            this.panelView.ResumeLayout(false);
-            this.panelView.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
-            this.ResumeLayout(false);
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(1100, 600);
+            Controls.Add(panelTop);
+            Controls.Add(panelLeft);
+            Controls.Add(panelActions);
+            Controls.Add(panelFilters);
+            Controls.Add(panelView);
+            Controls.Add(dgvProducts);
+            Name = "StorekeeperCatalogForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Каталог товаров - Кладовщик";
+            Load += StorekeeperCatalogForm_Load;
+            panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
+            panelLeft.ResumeLayout(false);
+            panelActions.ResumeLayout(false);
+            panelFilters.ResumeLayout(false);
+            panelFilters.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
+            panelView.ResumeLayout(false);
+            panelView.PerformLayout();
+            ResumeLayout(false);
         }
 
         private System.Windows.Forms.Panel panelTop;

@@ -1,20 +1,20 @@
-
 using Microsoft.EntityFrameworkCore;
-using Sklad_project_2.Models;
+using Sklad_project_app.Models;
 
-namespace Sklad_project_2
+
+namespace Sklad_project_app
 {
     public partial class AdminCatalogForm : Form
     {
-        private string _panelMode = "";
-        private int _selectedProductId = 0;
+        private PanelMode _currentMode = PanelMode.None;
+        private Guid _selectedProductId = Guid.Empty;
 
         public AdminCatalogForm()
         {
             InitializeComponent();
-            this.Text = "Каталог товаров - Администратор";
-            lblUserInfo.Text = "Администратор: " + CurrentUser.User.Surname
-                + " " + CurrentUser.User.Name;
+            this.Text = AppResources.CatalogTitle;
+            lblUserInfo.Text = AppResources.LblAdmin
+                + CurrentUser.User.Surname + " " + CurrentUser.User.Name;
         }
 
         private void AdminCatalogForm_Load(object sender, EventArgs e)
@@ -29,18 +29,20 @@ namespace Sklad_project_2
         {
             using (var db = new SkladContext())
             {
-                var cats = db.Categories.ToList();
+                var categories = db.Categories.ToList();
                 cmbCategory.Items.Clear();
-                cmbCategory.Items.Add("Все категории");
-                foreach (var c in cats)
-                    cmbCategory.Items.Add(c.Name);
+                cmbCategory.Items.Add(AppResources.FilterAll);
+                foreach (var category in categories)
+                {
+                    cmbCategory.Items.Add(category.Name);
+                }
                 cmbCategory.SelectedIndex = 0;
             }
 
             cmbAvailability.Items.Clear();
-            cmbAvailability.Items.Add("Все");
-            cmbAvailability.Items.Add("В наличии");
-            cmbAvailability.Items.Add("Нет в наличии");
+            cmbAvailability.Items.Add(AppResources.FilterAvailAll);
+            cmbAvailability.Items.Add(AppResources.FilterAvailIn);
+            cmbAvailability.Items.Add(AppResources.FilterAvailOut);
             cmbAvailability.SelectedIndex = 0;
         }
 
@@ -56,6 +58,7 @@ namespace Sklad_project_2
 
                 int totalCount = allProducts.Count;
 
+                //поиск
                 var searchText = txtSearch.Text.Trim().ToLower();
                 var afterSearch = new List<Product>();
 
@@ -65,18 +68,28 @@ namespace Sklad_project_2
                 }
                 else
                 {
-                    foreach (var p in allProducts)
+                    foreach (var product in allProducts)
                     {
-                        var pName = "";
-                        var pArticle = "";
-                        if (p.Name != null) pName = p.Name.ToLower();
-                        if (p.Article != null) pArticle = p.Article.ToLower();
+                        var productName = "";
+                        var productArticle = "";
 
-                        if (pName.Contains(searchText) || pArticle.Contains(searchText))
-                            afterSearch.Add(p);
+                        if (product.Name != null)
+                        {
+                            productName = product.Name.ToLower();
+                        }
+                        if (product.Article != null)
+                        {
+                            productArticle = product.Article.ToLower();
+                        }
+
+                        if (productName.Contains(searchText) || productArticle.Contains(searchText))
+                        {
+                            afterSearch.Add(product);
+                        }
                     }
                 }
 
+                //категория
                 var afterCategory = new List<Product>();
 
                 if (cmbCategory.SelectedIndex <= 0)
@@ -85,30 +98,37 @@ namespace Sklad_project_2
                 }
                 else
                 {
-                    var catName = cmbCategory.SelectedItem.ToString();
-                    foreach (var p in afterSearch)
+                    var selectedCategoryName = cmbCategory.SelectedItem.ToString();
+                    foreach (var product in afterSearch)
                     {
-                        if (p.Category != null && p.Category.Name == catName)
-                            afterCategory.Add(p);
+                        if (product.Category != null && product.Category.Name == selectedCategoryName)
+                        {
+                            afterCategory.Add(product);
+                        }
                     }
                 }
 
+                //наличие
                 var afterAvailability = new List<Product>();
 
                 if (cmbAvailability.SelectedIndex == 1)
                 {
-                    foreach (var p in afterCategory)
+                    foreach (var product in afterCategory)
                     {
-                        if (p.Stock != null && p.Stock.Rest > 0)
-                            afterAvailability.Add(p);
+                        if (product.Stock != null && product.Stock.Rest > 0)
+                        {
+                            afterAvailability.Add(product);
+                        }
                     }
                 }
                 else if (cmbAvailability.SelectedIndex == 2)
                 {
-                    foreach (var p in afterCategory)
+                    foreach (var product in afterCategory)
                     {
-                        if (p.Stock == null || p.Stock.Rest == 0)
-                            afterAvailability.Add(p);
+                        if (product.Stock == null || product.Stock.Rest == 0)
+                        {
+                            afterAvailability.Add(product);
+                        }
                     }
                 }
                 else
@@ -116,64 +136,88 @@ namespace Sklad_project_2
                     afterAvailability = afterCategory;
                 }
 
+                //цена
                 decimal priceFrom = 0;
-                decimal priceTo = 1000000;
+                decimal priceTo = 100000;
                 decimal.TryParse(txtPriceFrom.Text, out priceFrom);
                 decimal.TryParse(txtPriceTo.Text, out priceTo);
 
-                var afterPrice = new List<Product>();
-                foreach (var p in afterAvailability)
+                if (priceFrom < 0 || priceTo < 0)
                 {
-                    if (p.Stock != null &&
-                        p.Stock.PurchasePrice >= priceFrom &&
-                        p.Stock.PurchasePrice <= priceTo)
+                    MessageBox.Show(AppResources.MsgNegativePrice, AppResources.MsgInputError,
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    if (priceFrom < 0)
                     {
-                        afterPrice.Add(p);
+                        priceFrom = 0;
+                    }
+                    if (priceTo < 0)
+                    {
+                        priceTo = 100000;
                     }
                 }
 
-                lblFound.Text = "Найдено: " + afterPrice.Count + " из " + totalCount;
+                var afterPrice = new List<Product>();
+                foreach (var product in afterAvailability)
+                {
+                    if (product.Stock != null &&
+                        product.Stock.PurchasePrice >= priceFrom &&
+                        product.Stock.PurchasePrice <= priceTo)
+                    {
+                        afterPrice.Add(product);
+                    }
+                }
+
+                lblFound.Text = AppResources.LblFoundFormat + afterPrice.Count
+                    + " " + AppResources.LblFoundOf + " " + totalCount;
 
                 dgvProducts.Rows.Clear();
                 dgvProducts.Columns.Clear();
-                dgvProducts.Columns.Add("colArticle", "Артикул");
-                dgvProducts.Columns.Add("colName", "Наименование товара");
-                dgvProducts.Columns.Add("colCategory", "Категория");
-                dgvProducts.Columns.Add("colUnit", "Ед. измерения");
-                dgvProducts.Columns.Add("colPrice", "Цена закупки");
-                dgvProducts.Columns.Add("colRest", "Остаток");
+                dgvProducts.Columns.Add("colArticle", AppResources.ColArticle);
+                dgvProducts.Columns.Add("colName", AppResources.ColName);
+                dgvProducts.Columns.Add("colCategory", AppResources.ColCategory);
+                dgvProducts.Columns.Add("colUnit", AppResources.ColUnit);
+                dgvProducts.Columns.Add("colPrice", AppResources.ColPrice);
+                dgvProducts.Columns.Add("colRest", AppResources.ColRest);
                 dgvProducts.Columns.Add("colId", "ID");
                 dgvProducts.Columns["colId"].Visible = false;
 
-                foreach (var p in afterPrice)
+                foreach (var product in afterPrice)
                 {
                     var price = "—";
                     var rest = "—";
-                    var catName = "";
+                    var categoryName = "";
                     var unitName = "";
 
-                    if (p.Stock != null)
+                    if (product.Stock != null)
                     {
-                        price = p.Stock.PurchasePrice.ToString("0") + " руб.";
-                        rest = p.Stock.Rest.ToString();
+                        price = product.Stock.PurchasePrice.ToString("0") + " руб.";
+                        rest = product.Stock.Rest.ToString();
                     }
 
-                    if (p.Category != null) catName = p.Category.Name;
-                    if (p.Unit != null) unitName = p.Unit.Name;
+                    if (product.Category != null)
+                    {
+                        categoryName = product.Category.Name;
+                    }
+                    if (product.Unit != null)
+                    {
+                        unitName = product.Unit.Name;
+                    }
 
-                    dgvProducts.Rows.Add(p.Article, p.Name, catName, unitName, price, rest, p.Id);
+                    dgvProducts.Rows.Add(product.Article, product.Name,
+                        categoryName, unitName, price, rest, product.Id);
                 }
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            _panelMode = "add";
-            _selectedProductId = 0;
+            _currentMode = PanelMode.Add;
+            _selectedProductId = Guid.Empty;
             ClearEditPanel();
             LoadCategoriesToEditPanel();
             LoadUnitsToCmbUnit();
-            lblPanelTitle.Text = "ДОБАВЛЕНИЕ ТОВАРА";
+            lblPanelTitle.Text = AppResources.PanelAdd;
             panelEdit.Visible = true;
             panelEdit.BringToFront();
         }
@@ -182,22 +226,26 @@ namespace Sklad_project_2
         {
             if (dgvProducts.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Выберите товар для редактирования!");
+                MessageBox.Show(AppResources.MsgSelectEdit);
                 return;
             }
 
-            var row = dgvProducts.SelectedRows[0];
-            if (!int.TryParse(row.Cells["colId"].Value?.ToString(), out _selectedProductId))
+            var selectedRow = dgvProducts.SelectedRows[0];
+            var idValue = selectedRow.Cells["colId"].Value?.ToString();
+
+            Guid parsedId;
+            if (!Guid.TryParse(idValue, out parsedId))
             {
-                MessageBox.Show("Ошибка выбора товара!");
+                MessageBox.Show(AppResources.MsgProductError);
                 return;
             }
 
-            _panelMode = "edit";
+            _selectedProductId = parsedId;
+            _currentMode = PanelMode.Edit;
             LoadCategoriesToEditPanel();
             LoadUnitsToCmbUnit();
             LoadProductToEditPanel(_selectedProductId);
-            lblPanelTitle.Text = "РЕДАКТИРОВАНИЕ ТОВАРА";
+            lblPanelTitle.Text = AppResources.PanelEdit;
             panelEdit.Visible = true;
             panelEdit.BringToFront();
         }
@@ -206,40 +254,57 @@ namespace Sklad_project_2
         {
             if (dgvProducts.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Выберите товар для удаления!");
+                MessageBox.Show(AppResources.MsgSelectDelete);
                 return;
             }
 
-            var row = dgvProducts.SelectedRows[0];
-            int productId;
-            if (!int.TryParse(row.Cells["colId"].Value?.ToString(), out productId))
+            var selectedRow = dgvProducts.SelectedRows[0];
+            var idValue = selectedRow.Cells["colId"].Value?.ToString();
+
+            Guid productId;
+            if (!Guid.TryParse(idValue, out productId))
             {
-                MessageBox.Show("Ошибка выбора товара!");
+                MessageBox.Show(AppResources.MsgProductError);
                 return;
             }
 
-            var result = MessageBox.Show("Удалить выбранный товар?", "Подтверждение",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result != DialogResult.Yes) return;
+            var result = MessageBox.Show(
+                AppResources.MsgDeleteConfirm,
+                AppResources.MsgDeleteTitle,
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
 
             using (var db = new SkladContext())
             {
-                Stock foundStock = null;
-                var allStocks = db.Stocks.ToList();
-                foreach (var s in allStocks)
+                var foundStock = db.Stocks
+                    .Where(stock => stock.ProductId == productId)
+                    .FirstOrDefault();
+
+                if (foundStock != null)
                 {
-                    if (s.ProductId == productId)
-                    {
-                        foundStock = s;
-                        break;
-                    }
+                    db.Stocks.Remove(foundStock);
                 }
-                if (foundStock != null) db.Stocks.Remove(foundStock);
 
-                var product = db.Products.Find(productId);
-                if (product != null) db.Products.Remove(product);
+                var foundProduct = db.Products.Find(productId);
+                if (foundProduct != null)
+                {
+                    db.Products.Remove(foundProduct);
+                }
 
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                    return;
+                }
             }
 
             LoadProducts();
@@ -249,20 +314,24 @@ namespace Sklad_project_2
         {
             if (dgvProducts.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Выберите товар для просмотра!");
+                MessageBox.Show(AppResources.MsgSelectView);
                 return;
             }
 
-            var row = dgvProducts.SelectedRows[0];
-            int productId;
-            if (!int.TryParse(row.Cells["colId"].Value?.ToString(), out productId))
-                return;
+            var selectedRow = dgvProducts.SelectedRows[0];
+            var idValue = selectedRow.Cells["colId"].Value?.ToString();
 
-            _panelMode = "view";
+            Guid productId;
+            if (!Guid.TryParse(idValue, out productId))
+            {
+                return;
+            }
+
+            _currentMode = PanelMode.View;
             LoadCategoriesToEditPanel();
             LoadUnitsToCmbUnit();
             LoadProductToEditPanel(productId);
-            lblPanelTitle.Text = "ПРОСМОТР ТОВАРА";
+            lblPanelTitle.Text = AppResources.PanelView;
 
             txtArticleEdit.ReadOnly = true;
             txtNameEdit.ReadOnly = true;
@@ -304,10 +373,12 @@ namespace Sklad_project_2
         {
             using (var db = new SkladContext())
             {
-                var cats = db.Categories.ToList();
+                var categories = db.Categories.ToList();
                 cmbCategoryEdit.Items.Clear();
-                foreach (var c in cats)
-                    cmbCategoryEdit.Items.Add(c.Name);
+                foreach (var category in categories)
+                {
+                    cmbCategoryEdit.Items.Add(category.Name);
+                }
             }
         }
 
@@ -317,12 +388,14 @@ namespace Sklad_project_2
             {
                 var units = db.Units.ToList();
                 cmbUnitEdit.Items.Clear();
-                foreach (var u in units)
-                    cmbUnitEdit.Items.Add(u.Name);
+                foreach (var unit in units)
+                {
+                    cmbUnitEdit.Items.Add(unit.Name);
+                }
             }
         }
 
-        private void LoadProductToEditPanel(int productId)
+        private void LoadProductToEditPanel(Guid productId)
         {
             using (var db = new SkladContext())
             {
@@ -332,17 +405,20 @@ namespace Sklad_project_2
                     .Include("Stock")
                     .ToList();
 
-                Product p = null;
-                foreach (var prod in allProducts)
+                Product foundProduct = null;
+                foreach (var product in allProducts)
                 {
-                    if (prod.Id == productId)
+                    if (product.Id == productId)
                     {
-                        p = prod;
+                        foundProduct = product;
                         break;
                     }
                 }
 
-                if (p == null) return;
+                if (foundProduct == null)
+                {
+                    return;
+                }
 
                 txtArticleEdit.ReadOnly = false;
                 txtNameEdit.ReadOnly = false;
@@ -352,19 +428,23 @@ namespace Sklad_project_2
                 txtRestEdit.ReadOnly = false;
                 btnSaveEdit.Visible = true;
 
-                txtArticleEdit.Text = p.Article;
-                txtNameEdit.Text = p.Name;
+                txtArticleEdit.Text = foundProduct.Article;
+                txtNameEdit.Text = foundProduct.Name;
 
-                if (p.Category != null)
-                    cmbCategoryEdit.SelectedItem = p.Category.Name;
-
-                if (p.Unit != null)
-                    cmbUnitEdit.SelectedItem = p.Unit.Name;
-
-                if (p.Stock != null)
+                if (foundProduct.Category != null)
                 {
-                    txtPriceEdit.Text = p.Stock.PurchasePrice.ToString("0");
-                    txtRestEdit.Text = p.Stock.Rest.ToString();
+                    cmbCategoryEdit.SelectedItem = foundProduct.Category.Name;
+                }
+
+                if (foundProduct.Unit != null)
+                {
+                    cmbUnitEdit.SelectedItem = foundProduct.Unit.Name;
+                }
+
+                if (foundProduct.Stock != null)
+                {
+                    txtPriceEdit.Text = foundProduct.Stock.PurchasePrice.ToString("0");
+                    txtRestEdit.Text = foundProduct.Stock.Rest.ToString();
                 }
                 else
                 {
@@ -376,17 +456,21 @@ namespace Sklad_project_2
 
         private void ClearEditPanel()
         {
-            txtArticleEdit.Text = "";
-            txtNameEdit.Text = "";
+            txtArticleEdit.Text = null;
+            txtNameEdit.Text = null;
 
             if (cmbCategoryEdit.Items.Count > 0)
+            {
                 cmbCategoryEdit.SelectedIndex = 0;
+            }
 
             if (cmbUnitEdit.Items.Count > 0)
+            {
                 cmbUnitEdit.SelectedIndex = 0;
+            }
 
-            txtPriceEdit.Text = "";
-            txtRestEdit.Text = "";
+            txtPriceEdit.Text = null;
+            txtRestEdit.Text = null;
 
             txtArticleEdit.ReadOnly = false;
             txtNameEdit.ReadOnly = false;
@@ -401,119 +485,144 @@ namespace Sklad_project_2
         {
             var article = txtArticleEdit.Text.Trim();
             var name = txtNameEdit.Text.Trim();
-            var catName = "";
+            var categoryName = "";
             var unitName = "";
 
             if (cmbCategoryEdit.SelectedItem != null)
-                catName = cmbCategoryEdit.SelectedItem.ToString();
+            {
+                categoryName = cmbCategoryEdit.SelectedItem.ToString();
+            }
             if (cmbUnitEdit.SelectedItem != null)
+            {
                 unitName = cmbUnitEdit.SelectedItem.ToString();
+            }
 
             decimal price;
             int rest;
 
             if (!decimal.TryParse(txtPriceEdit.Text, out price))
             {
-                MessageBox.Show("Введите корректную цену!");
+                MessageBox.Show(AppResources.MsgPriceError);
                 return;
             }
+
+            if (price < 0)
+            {
+                MessageBox.Show(AppResources.MsgNegativePrice, AppResources.MsgInputError,
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!int.TryParse(txtRestEdit.Text, out rest))
             {
-                MessageBox.Show("Введите корректный остаток!");
+                MessageBox.Show(AppResources.MsgRestError);
                 return;
             }
             if (string.IsNullOrEmpty(article) || string.IsNullOrEmpty(name)
-                || string.IsNullOrEmpty(catName) || string.IsNullOrEmpty(unitName))
+                || string.IsNullOrEmpty(categoryName) || string.IsNullOrEmpty(unitName))
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show(AppResources.MsgFillFields);
                 return;
             }
 
             using (var db = new SkladContext())
             {
-                Category foundCategory = null;
-                var allCats = db.Categories.ToList();
-                foreach (var c in allCats)
-                {
-                    if (c.Name == catName)
-                    {
-                        foundCategory = c;
-                        break;
-                    }
-                }
+                var foundCategory = db.Categories
+                    .Where(category => category.Name == categoryName)
+                    .FirstOrDefault();
 
-                Unit foundUnit = null;
-                var allUnits = db.Units.ToList();
-                foreach (var u in allUnits)
-                {
-                    if (u.Name == unitName)
-                    {
-                        foundUnit = u;
-                        break;
-                    }
-                }
+                var foundUnit = db.Units
+                    .Where(unit => unit.Name == unitName)
+                    .FirstOrDefault();
 
                 if (foundCategory == null || foundUnit == null)
                 {
-                    MessageBox.Show("Категория или единица измерения не найдены!");
+                    MessageBox.Show(AppResources.MsgCatUnitNotFound);
                     return;
                 }
 
-                if (_panelMode == "add")
+                if (_currentMode == PanelMode.Add)
                 {
                     var newProduct = new Product
                     {
+                        Id = Guid.NewGuid(),
                         Article = article,
                         Name = name,
                         CategoryId = foundCategory.Id,
                         UnitId = foundUnit.Id
                     };
                     db.Products.Add(newProduct);
-                    db.SaveChanges();
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                        return;
+                    }
 
                     var newStock = new Stock
                     {
+                        Id = Guid.NewGuid(),
                         ProductId = newProduct.Id,
                         PurchasePrice = price,
                         Rest = rest
                     };
                     db.Stocks.Add(newStock);
-                    db.SaveChanges();
 
-                    MessageBox.Show("Товар добавлен!");
-                }
-                else if (_panelMode == "edit")
-                {
-                    var product = db.Products.Find(_selectedProductId);
-                    if (product == null) return;
-
-                    product.Article = article;
-                    product.Name = name;
-                    product.CategoryId = foundCategory.Id;
-                    product.UnitId = foundUnit.Id;
-
-                    Stock foundStock = null;
-                    var allStocks = db.Stocks.ToList();
-                    foreach (var s in allStocks)
+                    try
                     {
-                        if (s.ProductId == _selectedProductId)
-                        {
-                            foundStock = s;
-                            break;
-                        }
+                        db.SaveChanges();
+                        MessageBox.Show(AppResources.MsgProductAdded);
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                        return;
+                    }
+                }
+                else if (_currentMode == PanelMode.Edit)
+                {
+                    var foundProduct = db.Products.Find(_selectedProductId);
+                    if (foundProduct == null)
+                    {
+                        return;
+                    }
+
+                    foundProduct.Article = article;
+                    foundProduct.Name = name;
+                    foundProduct.CategoryId = foundCategory.Id;
+                    foundProduct.UnitId = foundUnit.Id;
+
+                    var foundStock = db.Stocks
+                        .Where(stock => stock.ProductId == _selectedProductId)
+                        .FirstOrDefault();
 
                     if (foundStock == null)
                     {
-                        foundStock = new Stock { ProductId = _selectedProductId };
+                        foundStock = new Stock
+                        {
+                            Id = Guid.NewGuid(),
+                            ProductId = _selectedProductId
+                        };
                         db.Stocks.Add(foundStock);
                     }
 
                     foundStock.PurchasePrice = price;
                     foundStock.Rest = rest;
 
-                    db.SaveChanges();
-                    MessageBox.Show("Товар обновлён!");
+                    try
+                    {
+                        db.SaveChanges();
+                        MessageBox.Show(AppResources.MsgProductUpdated);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                        return;
+                    }
                 }
             }
 
@@ -525,6 +634,7 @@ namespace Sklad_project_2
         {
             panelEdit.Visible = false;
         }
+
 
         private void btnCatalog_Click(object sender, EventArgs e)
         {

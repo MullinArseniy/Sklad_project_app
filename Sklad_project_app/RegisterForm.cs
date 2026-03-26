@@ -1,6 +1,7 @@
-﻿using Sklad_project_2.Models;
+﻿using Sklad_project_app.Models;
+using Sklad_project_app;
 
-namespace Sklad_project_2
+namespace Sklad_project_app
 {
     public partial class RegisterForm : Form
     {
@@ -12,13 +13,17 @@ namespace Sklad_project_2
         private void chkAdmin_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAdmin.Checked)
+            {
                 chkStorekeeper.Checked = false;
+            }
         }
 
         private void chkStorekeeper_CheckedChanged(object sender, EventArgs e)
         {
             if (chkStorekeeper.Checked)
+            {
                 chkAdmin.Checked = false;
+            }
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -28,24 +33,33 @@ namespace Sklad_project_2
 
             if (string.IsNullOrEmpty(fio) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show(AppResources.MsgWrongLogin);
                 return;
             }
 
             if (!chkAdmin.Checked && !chkStorekeeper.Checked)
             {
-                MessageBox.Show("Выберите роль!");
+                MessageBox.Show(AppResources.MsgSelectRole);
                 return;
             }
 
-            var parts = fio.Split(' ');
+            var parts = fio.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var surname = "";
             var name = "";
             var patronymic = "";
 
-            if (parts.Length > 0) surname = parts[0];
-            if (parts.Length > 1) name = parts[1];
-            if (parts.Length > 2) patronymic = parts[2];
+            if (parts.Length > 0)
+            {
+                surname = parts[0];
+            }
+            if (parts.Length > 1)
+            {
+                name = parts[1];
+            }
+            if (parts.Length > 2)
+            {
+                patronymic = parts[2];
+            }
 
             using (var db = new SkladContext())
             {
@@ -53,55 +67,70 @@ namespace Sklad_project_2
                 foreach (var u in allUsers)
                 {
                     var userLogin = "";
-                    if (u.Login != null) userLogin = u.Login.Trim();
+                    if (u.Login != null)
+                    {
+                        userLogin = u.Login.Trim();
+                    }
 
                     if (userLogin == fio)
                     {
-                        MessageBox.Show("Пользователь с таким ФИО уже существует!");
+                        MessageBox.Show(AppResources.MsgUserExists);
                         return;
                     }
                 }
 
                 var roleName = "";
                 if (chkAdmin.Checked)
-                    roleName = "Администратор";
+                {
+                    roleName = AppResources.RegisterAdmin;
+                }
                 else
-                    roleName = "Кладовщик";
+                {
+                    roleName = AppResources.RegisterStorekeeper;
+                }
 
                 var allRoles = db.Roles.ToList();
                 Role foundRole = null;
 
-                foreach (var r in allRoles)
+                foreach (var role in allRoles)
                 {
-                    if (r.RoleName == roleName)
+                    if (role.RoleName == roleName)
                     {
-                        foundRole = r;
+                        foundRole = role;
                         break;
                     }
                 }
 
                 if (foundRole == null)
                 {
-                    MessageBox.Show("Роль не найдена в базе данных!");
+                    MessageBox.Show(AppResources.RegisterStorekeeper);
                     return;
                 }
 
+                var hashedPassword = PasswordHasher.HashPassword(password);
+
                 var newUser = new User
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid(),
                     Name = name,
                     Surname = surname,
                     Patronymic = patronymic,
                     Login = fio,
-                    Password = password,
+                    Password = hashedPassword,
                     Role_id = foundRole.Id
                 };
 
-                db.Users.Add(newUser);
-                db.SaveChanges();
-
-                MessageBox.Show("Регистрация успешна! Логин: " + fio);
-                this.Close();
+                try
+                {
+                    db.Users.Add(newUser);
+                    db.SaveChanges();
+                    MessageBox.Show(AppResources.MsgRegSuccess + fio);
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(AppResources.MsgSaveError + ex.Message);
+                }
             }
         }
     }
